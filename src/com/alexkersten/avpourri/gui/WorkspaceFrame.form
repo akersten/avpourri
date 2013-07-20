@@ -206,6 +206,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="33" green="33" red="33" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mainMenuBar"/>
@@ -672,7 +675,10 @@
                           <SubComponents>
                             <Component class="javax.swing.JButton" name="jButton13">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="PlayPause"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/play16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Pauses or resumes the timeline playback. [Space]"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -682,7 +688,10 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton15">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="BeginningOfTime"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/begin16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Sends marker to the beginning of the timeline. [Home]"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -690,7 +699,10 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton14">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="BeginningOfClip"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/last16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the beginning of the most recent clip. [Page Up]"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -698,7 +710,10 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton16">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="EndClip"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/next16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the end of the next clip. [Page Down]"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -706,7 +721,10 @@
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton17">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="EndTime"/>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/end16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the end of the timeline. [End]"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -750,7 +768,7 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" alignment="0" pref="415" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -764,10 +782,9 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="FileClipPropertiesPanel" max="32767" attributes="0"/>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                                       <Component id="jLabel18" max="32767" attributes="0"/>
@@ -775,19 +792,25 @@
                                                   </Group>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jTextField6" max="32767" attributes="0"/>
                                                       <Group type="102" attributes="0">
                                                           <Component id="jTextField5" min="-2" pref="76" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
                                                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="jLabel20" pref="223" max="32767" attributes="0"/>
+                                                          <Component id="jLabel20" max="32767" attributes="0"/>
                                                       </Group>
+                                                      <Component id="jTextField6" max="32767" attributes="0"/>
                                                   </Group>
+                                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="GeneratedClipPropertiesPanel" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="FileClipPropertiesPanel" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="GeneratedClipPropertiesPanel" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -810,7 +833,7 @@
                                           <Component id="FileClipPropertiesPanel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="GeneratedClipPropertiesPanel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="192" max="32767" attributes="0"/>
+                                          <EmptySpace pref="188" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -974,6 +997,9 @@
                                   <SubComponents>
                                     <Component class="javax.swing.JButton" name="jButton12">
                                       <Properties>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/gear16.png"/>
+                                        </Property>
                                         <Property name="text" type="java.lang.String" value="Generated Clip Properties"/>
                                       </Properties>
                                     </Component>
@@ -1019,9 +1045,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="CurrentEffectsPanel" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="CurrentEffectsPanel" max="32767" attributes="0"/>
+                                              <Component id="jPanel11" max="32767" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -1031,7 +1060,9 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="CurrentEffectsPanel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="176" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="jPanel11" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
@@ -1054,10 +1085,11 @@
                                               <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace pref="68" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="57" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                     </DimensionLayout>
@@ -1104,7 +1136,7 @@
                                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/gear16.png"/>
                                         </Property>
-                                        <Property name="text" type="java.lang.String" value="Effect Properties"/>
+                                        <Property name="text" type="java.lang.String" value="Properties"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton7">
@@ -1117,12 +1149,63 @@
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton8">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="Move Up"/>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/up16.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Up"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton9">
                                       <Properties>
-                                        <Property name="text" type="java.lang.String" value="Move Down"/>
+                                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                          <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/down16.png"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Down"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
+                                <Container class="javax.swing.JPanel" name="jPanel11">
+                                  <Properties>
+                                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                                        <TitledBorder title="Add Effect"/>
+                                      </Border>
+                                    </Property>
+                                  </Properties>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jButton18" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jButton19" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jButton18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jButton19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="0" pref="170" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JButton" name="jButton18">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Spin"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JButton" name="jButton19">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="Color Curve"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -1185,7 +1268,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSplitPane4" alignment="0" pref="1452" max="32767" attributes="0"/>
+                      <Component id="jSplitPane4" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -1215,33 +1298,45 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+                        <Component class="javax.swing.JToggleButton" name="jToggleButton2">
                           <Properties>
                             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                               <ComponentRef name="cropScaleButtonGroup"/>
                             </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/crop16.png"/>
+                            </Property>
                             <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Crop"/>
+                            <Property name="toolTipText" type="java.lang.String" value="When resizing a clip, cut parts out instead of changing its speed. [Q]"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+                        <Component class="javax.swing.JToggleButton" name="jToggleButton3">
                           <Properties>
                             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                               <ComponentRef name="cropScaleButtonGroup"/>
                             </Property>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/time16.png"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="Scale"/>
+                            <Property name="toolTipText" type="java.lang.String" value="When resizing a clip, adjust its playback speed instead of cropping. [W]"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JToolBar$Separator" name="jSeparator5">
                         </Component>
-                        <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+                        <Component class="javax.swing.JToggleButton" name="jToggleButton1">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/magnet16.png"/>
+                            </Property>
                             <Property name="selected" type="boolean" value="true"/>
                             <Property name="text" type="java.lang.String" value="Snap"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Snap clips to each other when they&apos;re close. Otherwise, snap to 1/framerate increments. [R]"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
@@ -1250,17 +1345,23 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton1">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Group Selected"/>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/group16.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Group"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Groups clips into a group (another type of clip). Clips must be the same length. [G]"/>
                             <Property name="focusable" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton3">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/ungroup16.png"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="Ungroup"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Dissolves ALL currently selected groups. [U]"/>
                             <Property name="focusable" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
@@ -1268,13 +1369,36 @@
                         </Component>
                         <Component class="javax.swing.JButton" name="jButton2">
                           <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/splice16.png"/>
+                            </Property>
                             <Property name="text" type="java.lang.String" value="Split"/>
+                            <Property name="toolTipText" type="java.lang.String" value="Splits a clip into two pieces. [S]"/>
                             <Property name="focusable" type="boolean" value="false"/>
-                            <Property name="horizontalTextPosition" type="int" value="0"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
                       </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="jPanel10">
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                          <JSplitPaneConstraints position="right"/>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="1450" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace min="0" pref="301" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -1291,10 +1415,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+        <Component class="javax.swing.JToggleButton" name="jToggleButton4">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/multigroup16.png"/>
+            </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Auto-group containers"/>
+            <Property name="text" type="java.lang.String" value="Auto-group"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
