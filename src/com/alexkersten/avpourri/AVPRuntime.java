@@ -15,7 +15,7 @@ import com.alexkersten.avpourri.gui.WorkspaceFrame;
 public class AVPRuntime {
 
     public AVPRuntime() {
-        WorkspaceFrame w = new WorkspaceFrame();
+        WorkspaceFrame w = new WorkspaceFrame(this);
         w.setVisible(true);
     }
 }
