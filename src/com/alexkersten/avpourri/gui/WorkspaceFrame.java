@@ -5,17 +5,22 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
+import com.alexkersten.avpourri.Main;
 import com.alexkersten.avpourri.gui.custom.JxClip;
 import com.alexkersten.avpourri.gui.custom.JxTimeline;
 import com.alexkersten.avpourri.gui.custom.JxTrack;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author akersten
  */
 public class WorkspaceFrame extends javax.swing.JFrame {
-
+    
+    private static final long serialVersionUID = 1L;
+    
     private AVPRuntime runtime;
 
     /**
@@ -23,18 +28,20 @@ public class WorkspaceFrame extends javax.swing.JFrame {
      */
     public WorkspaceFrame(AVPRuntime runtime) {
         this.runtime = runtime;
-
+        
+        initComponents();
         try {
             setIconImage(ImageIO.read(
                     this.getClass().getResource("icons/icon16.png")));
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
-
-        initComponents();
+        
         initCustomComponents();
+        
+        this.setLocationRelativeTo(null);
     }
-
+    
     private void initCustomComponents() {
         timelineContainerPanel.add(new JxTimeline<JxTrack<JxClip>>());
     }
@@ -49,16 +56,14 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         cropScaleButtonGroup = new javax.swing.ButtonGroup();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jSplitPane6 = new javax.swing.JSplitPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        topBottomSplitPane = new javax.swing.JSplitPane();
+        clipsPreviewSplitPane = new javax.swing.JSplitPane();
+        clipsTabbedPane = new javax.swing.JTabbedPane();
+        importedClipsPanel = new javax.swing.JPanel();
+        mediaMetadataSplitPane = new javax.swing.JSplitPane();
+        mediaMetadataScrollPane = new javax.swing.JScrollPane();
+        mediaMetadataPanel = new javax.swing.JPanel();
+        metadataPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -73,6 +78,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        mediaTreeScrollPane = new javax.swing.JScrollPane();
+        mediaTree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jPanel7 = new javax.swing.JPanel();
@@ -81,7 +88,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jSplitPane3 = new javax.swing.JSplitPane();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         PreviewPanel = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
         jToolBar3 = new javax.swing.JToolBar();
         jButton13 = new javax.swing.JButton();
         jSeparator8 = new javax.swing.JToolBar.Separator();
@@ -90,6 +96,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jTabbedPane4 = new javax.swing.JTabbedPane();
+        jPanel10 = new javax.swing.JPanel();
+        jToolBar4 = new javax.swing.JToolBar();
+        jButton20 = new javax.swing.JButton();
+        jSeparator11 = new javax.swing.JToolBar.Separator();
+        jButton22 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel6 = new javax.swing.JPanel();
@@ -137,6 +148,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
+        jButton21 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
+        jSeparator12 = new javax.swing.JToolBar.Separator();
+        jButton24 = new javax.swing.JButton();
+        jSeparator13 = new javax.swing.JToolBar.Separator();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jSlider1 = new javax.swing.JSlider();
@@ -146,12 +162,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton4 = new javax.swing.JToggleButton();
         mainMenuBar = new javax.swing.JMenuBar();
         avpourriMenu = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        licensingMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         globalSettingsMenuItem = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        exitMenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -160,37 +176,33 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem11 = new javax.swing.JMenuItem();
+        fileMenu = new javax.swing.JMenu();
+        addSourceFileMenuItem = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem12 = new javax.swing.JMenuItem();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle(Main.APPLICATION_TITLE + " " + Main.VERSION + " " + Main.BRANCH);
 
-        jSplitPane1.setDividerLocation(450);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        topBottomSplitPane.setDividerLocation(450);
+        topBottomSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jSplitPane2.setDividerLocation(370);
+        clipsPreviewSplitPane.setDividerLocation(370);
 
-        jSplitPane6.setDividerLocation(190);
-        jSplitPane6.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        mediaMetadataSplitPane.setDividerLocation(230);
+        mediaMetadataSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jScrollPane2.setViewportView(jTree1);
-
-        jSplitPane6.setTopComponent(jScrollPane2);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Metadata"));
+        metadataPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Metadata"));
 
         jLabel2.setText("Name:");
 
@@ -220,14 +232,14 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jLabel13.setText("4m 33s");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout metadataPanelLayout = new javax.swing.GroupLayout(metadataPanel);
+        metadataPanel.setLayout(metadataPanelLayout);
+        metadataPanelLayout.setHorizontalGroup(
+            metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(metadataPanelLayout.createSequentialGroup()
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,84 +247,98 @@ public class WorkspaceFrame extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        metadataPanelLayout.setVerticalGroup(
+            metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(metadataPanelLayout.createSequentialGroup()
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(metadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15)))
         );
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout mediaMetadataPanelLayout = new javax.swing.GroupLayout(mediaMetadataPanel);
+        mediaMetadataPanel.setLayout(mediaMetadataPanelLayout);
+        mediaMetadataPanelLayout.setHorizontalGroup(
+            mediaMetadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mediaMetadataPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(metadataPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        mediaMetadataPanelLayout.setVerticalGroup(
+            mediaMetadataPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mediaMetadataPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(187, Short.MAX_VALUE))
+                .addComponent(metadataPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
-        jScrollPane4.setViewportView(jPanel3);
+        mediaMetadataScrollPane.setViewportView(mediaMetadataPanel);
 
-        jSplitPane6.setRightComponent(jScrollPane4);
+        mediaMetadataSplitPane.setRightComponent(mediaMetadataScrollPane);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Project Media");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Placeholder Folder");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Placeholder File");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        mediaTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        mediaTreeScrollPane.setViewportView(mediaTree);
+
+        mediaMetadataSplitPane.setLeftComponent(mediaTreeScrollPane);
+
+        javax.swing.GroupLayout importedClipsPanelLayout = new javax.swing.GroupLayout(importedClipsPanel);
+        importedClipsPanel.setLayout(importedClipsPanelLayout);
+        importedClipsPanelLayout.setHorizontalGroup(
+            importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mediaMetadataSplitPane)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+        importedClipsPanelLayout.setVerticalGroup(
+            importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Source Files", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/hier16.png")), jPanel1); // NOI18N
+        clipsTabbedPane.addTab("Imported Clips", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/hier16.png")), importedClipsPanel); // NOI18N
 
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/text16.png"))); // NOI18N
         jButton10.setText("Text");
+        jButton10.setEnabled(false);
 
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/blob16.png"))); // NOI18N
         jButton11.setText("Solid Color");
+        jButton11.setEnabled(false);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -348,32 +374,20 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Generate Clip", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/new16.png")), jPanel2); // NOI18N
+        clipsTabbedPane.addTab("Generate Clip", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/new16.png")), jPanel2); // NOI18N
 
-        jSplitPane2.setLeftComponent(jTabbedPane1);
+        clipsPreviewSplitPane.setLeftComponent(clipsTabbedPane);
 
         jSplitPane3.setBackground(new java.awt.Color(30, 30, 30));
         jSplitPane3.setDividerLocation(468);
 
         PreviewPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel8.setBackground(new java.awt.Color(73, 36, 73));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
-        );
-
         jToolBar3.setRollover(true);
 
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/play16.png"))); // NOI18N
         jButton13.setToolTipText("Pauses or resumes the timeline playback. [Space]");
+        jButton13.setEnabled(false);
         jButton13.setFocusable(false);
         jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -382,6 +396,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/begin16.png"))); // NOI18N
         jButton15.setToolTipText("Sends marker to the beginning of the timeline. [Home]");
+        jButton15.setEnabled(false);
         jButton15.setFocusable(false);
         jButton15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton15.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -389,6 +404,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/last16.png"))); // NOI18N
         jButton14.setToolTipText("Sends the marker to the beginning of the most recent clip. [Page Up]");
+        jButton14.setEnabled(false);
         jButton14.setFocusable(false);
         jButton14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -396,6 +412,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/next16.png"))); // NOI18N
         jButton16.setToolTipText("Sends the marker to the end of the next clip. [Page Down]");
+        jButton16.setEnabled(false);
         jButton16.setFocusable(false);
         jButton16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton16.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -403,6 +420,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/end16.png"))); // NOI18N
         jButton17.setToolTipText("Sends the marker to the end of the timeline. [End]");
+        jButton17.setEnabled(false);
         jButton17.setFocusable(false);
         jButton17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton17.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -413,49 +431,85 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         PreviewPanelLayout.setHorizontalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PreviewPanelLayout.setVerticalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PreviewPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addContainerGap(390, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane3.addTab("Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), PreviewPanel); // NOI18N
+        jTabbedPane3.addTab("Render Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), PreviewPanel); // NOI18N
 
         jSplitPane3.setRightComponent(jTabbedPane3);
 
         jTabbedPane4.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
+        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+
+        jToolBar4.setRollover(true);
+
+        jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/play16.png"))); // NOI18N
+        jButton20.setToolTipText("Pauses or resumes the timeline playback. [Space]");
+        jButton20.setFocusable(false);
+        jButton20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(jButton20);
+        jToolBar4.add(jSeparator11);
+
+        jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/last16.png"))); // NOI18N
+        jButton22.setToolTipText("Sends the marker to the beginning of the most recent clip. [Page Up]");
+        jButton22.setFocusable(false);
+        jButton22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar4.add(jButton22);
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addGap(0, 390, Short.MAX_VALUE)
+                .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jTabbedPane4.addTab("Source Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), jPanel10); // NOI18N
+
         jPanel6.setBackground(new java.awt.Color(51, 51, 51));
 
         FileClipPropertiesPanel.setBackground(new java.awt.Color(51, 51, 51));
-        FileClipPropertiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 255, 153)));
+        FileClipPropertiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(242, 0, 149)));
         FileClipPropertiesPanel.setOpaque(false);
 
         jLabel16.setText("Speed:");
 
         jTextField2.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField2.setForeground(new java.awt.Color(255, 127, 206));
+        jTextField2.setForeground(new java.awt.Color(229, 229, 229));
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jTextField2.setText("1");
+        jTextField2.setEnabled(false);
 
         jLabel19.setText("Crop:");
 
         jTextField3.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField3.setForeground(new java.awt.Color(255, 127, 206));
+        jTextField3.setForeground(new java.awt.Color(229, 229, 229));
         jTextField3.setText("0:00");
+        jTextField3.setEnabled(false);
 
         jTextField4.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField4.setForeground(new java.awt.Color(255, 127, 206));
+        jTextField4.setForeground(new java.awt.Color(229, 229, 229));
         jTextField4.setText("9:99");
+        jTextField4.setEnabled(false);
 
         jButton4.setText("Reset");
+        jButton4.setEnabled(false);
 
         jButton5.setText("Reset");
+        jButton5.setEnabled(false);
 
         javax.swing.GroupLayout FileClipPropertiesPanelLayout = new javax.swing.GroupLayout(FileClipPropertiesPanel);
         FileClipPropertiesPanel.setLayout(FileClipPropertiesPanelLayout);
@@ -500,15 +554,17 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jLabel17.setText("Name:");
 
         jTextField6.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField6.setForeground(new java.awt.Color(255, 127, 206));
+        jTextField6.setForeground(new java.awt.Color(229, 229, 229));
         jTextField6.setText("Some Clip/Group 1");
+        jTextField6.setEnabled(false);
 
         jLabel18.setForeground(new java.awt.Color(204, 204, 204));
         jLabel18.setText("Start:");
 
         jTextField5.setBackground(new java.awt.Color(102, 102, 102));
-        jTextField5.setForeground(new java.awt.Color(255, 127, 206));
+        jTextField5.setForeground(new java.awt.Color(229, 229, 229));
         jTextField5.setText("0:00");
+        jTextField5.setEnabled(false);
 
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("Type:");
@@ -517,11 +573,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jLabel20.setText("Video/Audio/Text/Generated");
 
         GeneratedClipPropertiesPanel.setBackground(new java.awt.Color(51, 51, 51));
-        GeneratedClipPropertiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(51, 255, 153)));
+        GeneratedClipPropertiesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "AV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(242, 0, 149)));
         GeneratedClipPropertiesPanel.setOpaque(false);
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/gear16.png"))); // NOI18N
         jButton12.setText("Generated Clip Properties");
+        jButton12.setEnabled(false);
 
         javax.swing.GroupLayout GeneratedClipPropertiesPanelLayout = new javax.swing.GroupLayout(GeneratedClipPropertiesPanel);
         GeneratedClipPropertiesPanel.setLayout(GeneratedClipPropertiesPanelLayout);
@@ -609,19 +666,24 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jList1.setEnabled(false);
         jScrollPane3.setViewportView(jList1);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/gear16.png"))); // NOI18N
         jButton6.setText("Properties");
+        jButton6.setEnabled(false);
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/x16.png"))); // NOI18N
         jButton7.setText("Remove");
+        jButton7.setEnabled(false);
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/up16.png"))); // NOI18N
         jButton8.setText("Up");
+        jButton8.setEnabled(false);
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/down16.png"))); // NOI18N
         jButton9.setText("Down");
+        jButton9.setEnabled(false);
 
         javax.swing.GroupLayout CurrentEffectsPanelLayout = new javax.swing.GroupLayout(CurrentEffectsPanel);
         CurrentEffectsPanel.setLayout(CurrentEffectsPanelLayout);
@@ -653,8 +715,10 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Add Effect"));
 
         jButton18.setText("Spin");
+        jButton18.setEnabled(false);
 
         jButton19.setText("Color Curve");
+        jButton19.setEnabled(false);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -726,9 +790,9 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jSplitPane3.setLeftComponent(jTabbedPane4);
 
-        jSplitPane2.setRightComponent(jSplitPane3);
+        clipsPreviewSplitPane.setRightComponent(jSplitPane3);
 
-        jSplitPane1.setTopComponent(jSplitPane2);
+        topBottomSplitPane.setTopComponent(clipsPreviewSplitPane);
 
         jSplitPane4.setDividerLocation(32);
         jSplitPane4.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -765,6 +829,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/group16.png"))); // NOI18N
         jButton1.setText("Group");
         jButton1.setToolTipText("Groups clips into a group (another type of clip). Clips must be the same length. [G]");
+        jButton1.setEnabled(false);
         jButton1.setFocusable(false);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton1);
@@ -772,6 +837,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/ungroup16.png"))); // NOI18N
         jButton3.setText("Ungroup");
         jButton3.setToolTipText("Dissolves ALL currently selected groups. [U]");
+        jButton3.setEnabled(false);
         jButton3.setFocusable(false);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton3);
@@ -780,10 +846,34 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/splice16.png"))); // NOI18N
         jButton2.setText("Split");
         jButton2.setToolTipText("Splits a clip into two pieces. [S]");
+        jButton2.setEnabled(false);
         jButton2.setFocusable(false);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton2);
         jToolBar2.add(jSeparator4);
+
+        jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/filmadd16.png"))); // NOI18N
+        jButton21.setText("Add Video Track");
+        jButton21.setEnabled(false);
+        jButton21.setFocusable(false);
+        jButton21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton21);
+
+        jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/soundadd16.png"))); // NOI18N
+        jButton23.setText("Add Audio Track");
+        jButton23.setEnabled(false);
+        jButton23.setFocusable(false);
+        jButton23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton23);
+        jToolBar2.add(jSeparator12);
+
+        jButton24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/trash16.png"))); // NOI18N
+        jButton24.setText("Delete Track");
+        jButton24.setEnabled(false);
+        jButton24.setFocusable(false);
+        jButton24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jButton24);
+        jToolBar2.add(jSeparator13);
 
         jLabel21.setText("Zoom:");
         jToolBar2.add(jLabel21);
@@ -801,6 +891,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToolBar2.add(jLabel23);
 
         jSplitPane4.setTopComponent(jToolBar2);
+
+        timelineContainerPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout timelineContainerPanelLayout = new javax.swing.GroupLayout(timelineContainerPanel);
         timelineContainerPanel.setLayout(timelineContainerPanelLayout);
@@ -828,7 +920,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Timeline", TimelinePanel);
 
-        jSplitPane1.setRightComponent(jTabbedPane2);
+        topBottomSplitPane.setRightComponent(jTabbedPane2);
 
         jToolBar1.setBackground(new java.awt.Color(51, 51, 51));
         jToolBar1.setRollover(true);
@@ -842,15 +934,21 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToolBar1.add(jToggleButton4);
 
         avpourriMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/icon16.png"))); // NOI18N
-        avpourriMenu.setText("AVpourri");
+        avpourriMenu.setText(Main.APPLICATION_TITLE);
 
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/key16.png"))); // NOI18N
-        jMenuItem4.setText("Licensing Info");
-        avpourriMenu.add(jMenuItem4);
+        licensingMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/key16.png"))); // NOI18N
+        licensingMenuItem.setText("Licensing Info");
+        licensingMenuItem.setEnabled(false);
+        avpourriMenu.add(licensingMenuItem);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/bang16.png"))); // NOI18N
-        jMenuItem3.setText("About");
-        avpourriMenu.add(jMenuItem3);
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/bang16.png"))); // NOI18N
+        aboutMenuItem.setText("About");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        avpourriMenu.add(aboutMenuItem);
         avpourriMenu.add(jSeparator1);
 
         globalSettingsMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/gear16.png"))); // NOI18N
@@ -863,14 +961,20 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         avpourriMenu.add(globalSettingsMenuItem);
         avpourriMenu.add(jSeparator9);
 
-        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/exit16.png"))); // NOI18N
-        jMenuItem13.setText("Exit");
-        avpourriMenu.add(jMenuItem13);
+        exitMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/exit16.png"))); // NOI18N
+        exitMenuItem.setText("Exit");
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        avpourriMenu.add(exitMenuItem);
 
         mainMenuBar.add(avpourriMenu);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/files16.png"))); // NOI18N
         jMenu4.setText("Project");
+        jMenu4.setEnabled(false);
 
         jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/blankfiles16.png"))); // NOI18N
         jMenuItem6.setText("New Blank Project");
@@ -896,17 +1000,23 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         mainMenuBar.add(jMenu4);
 
-        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/file16.png"))); // NOI18N
-        jMenu2.setText("File");
+        fileMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/file16.png"))); // NOI18N
+        fileMenu.setText("File");
 
-        jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/addfile16.png"))); // NOI18N
-        jMenuItem11.setText("Add Source File");
-        jMenu2.add(jMenuItem11);
+        addSourceFileMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/addfile16.png"))); // NOI18N
+        addSourceFileMenuItem.setText("Add Source File");
+        addSourceFileMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSourceFileMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(addSourceFileMenuItem);
 
-        mainMenuBar.add(jMenu2);
+        mainMenuBar.add(fileMenu);
 
         jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png"))); // NOI18N
         jMenu6.setText("Edit");
+        jMenu6.setEnabled(false);
 
         jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/exit16.png"))); // NOI18N
         jMenuItem17.setText("Undo");
@@ -919,8 +1029,24 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         mainMenuBar.add(jMenu6);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        jMenu3.setText("Tools");
+        jMenu3.setEnabled(false);
+
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        jMenuItem9.setText("aaaaaaaaaaaa");
+        jMenu3.add(jMenuItem9);
+        jMenu3.add(jSeparator10);
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("Debug Console");
+        jMenu3.add(jCheckBoxMenuItem1);
+
+        mainMenuBar.add(jMenu3);
+
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png"))); // NOI18N
         jMenu1.setText("Render");
+        jMenu1.setEnabled(false);
 
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png"))); // NOI18N
         jMenuItem10.setText("Render Project");
@@ -933,26 +1059,9 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         mainMenuBar.add(jMenu1);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
-        jMenu3.setText("Tools");
-
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
-        jMenuItem9.setText("Media Inspector");
-        jMenu3.add(jMenuItem9);
-        jMenu3.add(jSeparator10);
-
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
-        jMenuItem12.setText("Java L&F");
-        jMenu3.add(jMenuItem12);
-
-        jCheckBoxMenuItem1.setSelected(true);
-        jCheckBoxMenuItem1.setText("Debug Console");
-        jMenu3.add(jCheckBoxMenuItem1);
-
-        mainMenuBar.add(jMenu3);
-
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/question16.png"))); // NOI18N
         jMenu5.setText("Help");
+        jMenu5.setEnabled(false);
 
         jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/question16.png"))); // NOI18N
         jMenuItem14.setText("View Source Code (GitHub)");
@@ -970,7 +1079,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(topBottomSplitPane)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -978,7 +1087,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSplitPane1))
+                .addComponent(topBottomSplitPane))
         );
 
         pack();
@@ -987,10 +1096,38 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
+    
     private void globalSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_globalSettingsMenuItemActionPerformed
-        // TODO add your handling code here:
+        new GlobalSettingsFrame(runtime).setVisible(true);
     }//GEN-LAST:event_globalSettingsMenuItemActionPerformed
+    
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        if (runtime.isProjectDirty()) {
+            int response = JOptionPane.showConfirmDialog(
+                    this,
+                    "TODO: There are unsaved changes - save them?",
+                    "Confirm Exit", JOptionPane.YES_NO_CANCEL_OPTION);
+            
+            if (response == JOptionPane.YES_OPTION) {
+                //TODO: Save
+            }
+            
+            if (response == JOptionPane.CANCEL_OPTION) {
+                return;
+            }
+        }
+        
+        System.exit(0);
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+    
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        new AboutFrame().setVisible(true);
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
+    
+    private void addSourceFileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSourceFileMenuItemActionPerformed
+        JFileChooser js = new JFileChooser(System.getProperty("user.home"));
+        js.showOpenDialog(this);
+    }//GEN-LAST:event_addSourceFileMenuItemActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClipEffectsContainerPanel;
     private javax.swing.JPanel ClipEffectsPanel;
@@ -1000,9 +1137,16 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JPanel GeneratedClipPropertiesPanel;
     private javax.swing.JPanel PreviewPanel;
     private javax.swing.JPanel TimelinePanel;
+    private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem addSourceFileMenuItem;
     private javax.swing.JMenu avpourriMenu;
+    private javax.swing.JSplitPane clipsPreviewSplitPane;
+    private javax.swing.JTabbedPane clipsTabbedPane;
     private javax.swing.ButtonGroup cropScaleButtonGroup;
+    private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem globalSettingsMenuItem;
+    private javax.swing.JPanel importedClipsPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -1015,6 +1159,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1048,44 +1197,36 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JToolBar.Separator jSeparator11;
+    private javax.swing.JToolBar.Separator jSeparator12;
+    private javax.swing.JToolBar.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -1095,12 +1236,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JSplitPane jSplitPane4;
-    private javax.swing.JSplitPane jSplitPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
@@ -1116,8 +1253,16 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
-    private javax.swing.JTree jTree1;
+    private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JMenuItem licensingMenuItem;
     private javax.swing.JMenuBar mainMenuBar;
+    private javax.swing.JPanel mediaMetadataPanel;
+    private javax.swing.JScrollPane mediaMetadataScrollPane;
+    private javax.swing.JSplitPane mediaMetadataSplitPane;
+    private javax.swing.JTree mediaTree;
+    private javax.swing.JScrollPane mediaTreeScrollPane;
+    private javax.swing.JPanel metadataPanel;
     private javax.swing.JPanel timelineContainerPanel;
+    private javax.swing.JSplitPane topBottomSplitPane;
     // End of variables declaration//GEN-END:variables
 }

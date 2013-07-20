@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.7" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="cropScaleButtonGroup">
     </Component>
@@ -11,24 +11,30 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/icon16.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="AVpourri"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Main.APPLICATION_TITLE" type="code"/>
+            </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
+            <MenuItem class="javax.swing.JMenuItem" name="licensingMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/key16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Licensing Info"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/bang16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
             </MenuItem>
@@ -45,13 +51,16 @@
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator9">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
+            <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/exit16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -61,6 +70,7 @@
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/files16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Project"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
@@ -109,7 +119,7 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/file16.png"/>
@@ -117,13 +127,16 @@
             <Property name="text" type="java.lang.String" value="File"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+            <MenuItem class="javax.swing.JMenuItem" name="addSourceFileMenuItem">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/addfile16.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Add Source File"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addSourceFileMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -133,6 +146,7 @@
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/pencil16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Edit"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem17">
@@ -154,12 +168,40 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu3">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/window16.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tools"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/window16.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="aaaaaaaaaaaa"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator10">
+            </MenuItem>
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItem1">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Debug Console"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/film16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Render"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
@@ -175,46 +217,13 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu3">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/window16.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Tools"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/window16.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Media Inspector"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator10">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/window16.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Java L&amp;F"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="jCheckBoxMenuItem1">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Debug Console"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/question16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Help"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem14">
@@ -240,6 +249,9 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+      <Connection code="Main.APPLICATION_TITLE + &quot; &quot; + Main.VERSION + &quot; &quot; + Main.BRANCH" type="code"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mainMenuBar"/>
@@ -261,7 +273,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" max="32767" attributes="0"/>
+          <Component id="topBottomSplitPane" max="32767" attributes="0"/>
           <Component id="jToolBar1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -270,13 +282,13 @@
           <Group type="102" alignment="1" attributes="0">
               <Component id="jToolBar1" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSplitPane1" max="32767" attributes="0"/>
+              <Component id="topBottomSplitPane" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+    <Container class="javax.swing.JSplitPane" name="topBottomSplitPane">
       <Properties>
         <Property name="dividerLocation" type="int" value="450"/>
         <Property name="orientation" type="int" value="0"/>
@@ -284,7 +296,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JSplitPane" name="jSplitPane2">
+        <Container class="javax.swing.JSplitPane" name="clipsPreviewSplitPane">
           <Properties>
             <Property name="dividerLocation" type="int" value="370"/>
           </Properties>
@@ -296,7 +308,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+            <Container class="javax.swing.JTabbedPane" name="clipsTabbedPane">
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                   <JSplitPaneConstraints position="left"/>
@@ -305,11 +317,11 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
               <SubComponents>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="importedClipsPanel">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Source Files">
-                        <Property name="tabTitle" type="java.lang.String" value="Source Files"/>
+                      <JTabbedPaneConstraints tabName="Imported Clips">
+                        <Property name="tabTitle" type="java.lang.String" value="Imported Clips"/>
                         <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/hier16.png"/>
                         </Property>
@@ -320,41 +332,25 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSplitPane6" alignment="0" pref="364" max="32767" attributes="0"/>
+                          <Component id="mediaMetadataSplitPane" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSplitPane6" alignment="0" pref="417" max="32767" attributes="0"/>
+                          <Component id="mediaMetadataSplitPane" alignment="0" pref="417" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Container class="javax.swing.JSplitPane" name="jSplitPane6">
+                    <Container class="javax.swing.JSplitPane" name="mediaMetadataSplitPane">
                       <Properties>
-                        <Property name="dividerLocation" type="int" value="190"/>
+                        <Property name="dividerLocation" type="int" value="230"/>
                         <Property name="orientation" type="int" value="0"/>
                       </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-                          <Constraints>
-                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                              <JSplitPaneConstraints position="top"/>
-                            </Constraint>
-                          </Constraints>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTree" name="jTree1">
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                        <Container class="javax.swing.JScrollPane" name="mediaMetadataScrollPane">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                               <JSplitPaneConstraints position="right"/>
@@ -363,14 +359,14 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Container class="javax.swing.JPanel" name="jPanel3">
+                            <Container class="javax.swing.JPanel" name="mediaMetadataPanel">
 
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jPanel4" max="32767" attributes="0"/>
+                                          <Component id="metadataPanel" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -379,14 +375,14 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="187" max="32767" attributes="0"/>
+                                          <Component id="metadataPanel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace pref="214" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
                               <SubComponents>
-                                <Container class="javax.swing.JPanel" name="jPanel4">
+                                <Container class="javax.swing.JPanel" name="metadataPanel">
                                   <Properties>
                                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -417,7 +413,7 @@
                                                   <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel7" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="jLabel11" alignment="0" pref="236" max="32767" attributes="0"/>
+                                                  <Component id="jLabel11" alignment="0" pref="240" max="32767" attributes="0"/>
                                                   <Component id="jLabel13" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -541,6 +537,27 @@
                             </Container>
                           </SubComponents>
                         </Container>
+                        <Container class="javax.swing.JScrollPane" name="mediaTreeScrollPane">
+                          <AuxValues>
+                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
+                              <JSplitPaneConstraints position="left"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JTree" name="mediaTree">
+                              <Properties>
+                                <Property name="model" type="javax.swing.tree.TreeModel" editor="org.netbeans.modules.form.editors2.TreeModelEditor">
+                                  <TreeModel code="Project Media&#xa; Placeholder Folder&#xa;  Placeholder File"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
                   </SubComponents>
@@ -604,12 +621,20 @@
                           <SubComponents>
                             <Component class="javax.swing.JButton" name="jButton10">
                               <Properties>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/text16.png"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Text"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JButton" name="jButton11">
                               <Properties>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/blob16.png"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Solid Color"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -652,8 +677,8 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                          <JTabbedPaneConstraints tabName="Preview (5760x1080@30p)">
-                            <Property name="tabTitle" type="java.lang.String" value="Preview (5760x1080@30p)"/>
+                          <JTabbedPaneConstraints tabName="Render Preview (5760x1080@30p)">
+                            <Property name="tabTitle" type="java.lang.String" value="Render Preview (5760x1080@30p)"/>
                             <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/film16.png"/>
                             </Property>
@@ -665,41 +690,18 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jToolBar3" pref="602" max="32767" attributes="0"/>
-                              <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel8" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace pref="390" max="32767" attributes="0"/>
                                   <Component id="jToolBar3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="jPanel8">
-                          <Properties>
-                            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="49" green="24" red="49" type="rgb"/>
-                            </Property>
-                          </Properties>
-
-                          <Layout>
-                            <DimensionLayout dim="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="602" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                            <DimensionLayout dim="1">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="361" max="32767" attributes="0"/>
-                              </Group>
-                            </DimensionLayout>
-                          </Layout>
-                        </Container>
                         <Container class="javax.swing.JToolBar" name="jToolBar3">
                           <Properties>
                             <Property name="rollover" type="boolean" value="true"/>
@@ -713,6 +715,7 @@
                                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/play16.png"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Pauses or resumes the timeline playback. [Space]"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -726,6 +729,7 @@
                                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/begin16.png"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Sends marker to the beginning of the timeline. [Home]"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -737,6 +741,7 @@
                                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/last16.png"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the beginning of the most recent clip. [Page Up]"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -748,6 +753,7 @@
                                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/next16.png"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the end of the next clip. [Page Down]"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -759,6 +765,7 @@
                                   <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/end16.png"/>
                                 </Property>
                                 <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the end of the timeline. [End]"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="focusable" type="boolean" value="false"/>
                                 <Property name="horizontalTextPosition" type="int" value="0"/>
                                 <Property name="verticalTextPosition" type="int" value="3"/>
@@ -782,6 +789,74 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
+                    <Container class="javax.swing.JPanel" name="jPanel10">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="0" type="rgb"/>
+                        </Property>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                          <JTabbedPaneConstraints tabName="Source Preview (5760x1080@30p)">
+                            <Property name="tabTitle" type="java.lang.String" value="Source Preview (5760x1080@30p)"/>
+                            <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/film16.png"/>
+                            </Property>
+                          </JTabbedPaneConstraints>
+                        </Constraint>
+                      </Constraints>
+
+                      <Layout>
+                        <DimensionLayout dim="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jToolBar4" alignment="0" pref="462" max="32767" attributes="0"/>
+                          </Group>
+                        </DimensionLayout>
+                        <DimensionLayout dim="1">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="390" max="32767" attributes="0"/>
+                                  <Component id="jToolBar4" min="-2" pref="25" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                        </DimensionLayout>
+                      </Layout>
+                      <SubComponents>
+                        <Container class="javax.swing.JToolBar" name="jToolBar4">
+                          <Properties>
+                            <Property name="rollover" type="boolean" value="true"/>
+                          </Properties>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+                          <SubComponents>
+                            <Component class="javax.swing.JButton" name="jButton20">
+                              <Properties>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/play16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Pauses or resumes the timeline playback. [Space]"/>
+                                <Property name="focusable" type="boolean" value="false"/>
+                                <Property name="horizontalTextPosition" type="int" value="0"/>
+                                <Property name="verticalTextPosition" type="int" value="3"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JToolBar$Separator" name="jSeparator11">
+                            </Component>
+                            <Component class="javax.swing.JButton" name="jButton22">
+                              <Properties>
+                                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                                  <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/last16.png"/>
+                                </Property>
+                                <Property name="toolTipText" type="java.lang.String" value="Sends the marker to the beginning of the most recent clip. [Page Up]"/>
+                                <Property name="focusable" type="boolean" value="false"/>
+                                <Property name="horizontalTextPosition" type="int" value="0"/>
+                                <Property name="verticalTextPosition" type="int" value="3"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
                     <Container class="javax.swing.JPanel" name="jPanel5">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -886,7 +961,7 @@
                                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                                         <TitledBorder title="AV">
-                                          <Color PropertyName="color" blue="99" green="ff" red="33" type="rgb"/>
+                                          <Color PropertyName="color" blue="95" green="0" red="f2" type="rgb"/>
                                         </TitledBorder>
                                       </Border>
                                     </Property>
@@ -953,10 +1028,11 @@
                                           <Color blue="66" green="66" red="66" type="rgb"/>
                                         </Property>
                                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                          <Color blue="ce" green="7f" red="ff" type="rgb"/>
+                                          <Color blue="e5" green="e5" red="e5" type="rgb"/>
                                         </Property>
                                         <Property name="horizontalAlignment" type="int" value="11"/>
                                         <Property name="text" type="java.lang.String" value="1"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JLabel" name="jLabel19">
@@ -970,9 +1046,10 @@
                                           <Color blue="66" green="66" red="66" type="rgb"/>
                                         </Property>
                                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                          <Color blue="ce" green="7f" red="ff" type="rgb"/>
+                                          <Color blue="e5" green="e5" red="e5" type="rgb"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="0:00"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JTextField" name="jTextField4">
@@ -981,19 +1058,22 @@
                                           <Color blue="66" green="66" red="66" type="rgb"/>
                                         </Property>
                                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                          <Color blue="ce" green="7f" red="ff" type="rgb"/>
+                                          <Color blue="e5" green="e5" red="e5" type="rgb"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="9:99"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton4">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" value="Reset"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton5">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" value="Reset"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -1012,9 +1092,10 @@
                                       <Color blue="66" green="66" red="66" type="rgb"/>
                                     </Property>
                                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ce" green="7f" red="ff" type="rgb"/>
+                                      <Color blue="e5" green="e5" red="e5" type="rgb"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Some Clip/Group 1"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel18">
@@ -1031,9 +1112,10 @@
                                       <Color blue="66" green="66" red="66" type="rgb"/>
                                     </Property>
                                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                      <Color blue="ce" green="7f" red="ff" type="rgb"/>
+                                      <Color blue="e5" green="e5" red="e5" type="rgb"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="0:00"/>
+                                    <Property name="enabled" type="boolean" value="false"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -1060,7 +1142,7 @@
                                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                                         <TitledBorder title="AV">
-                                          <Color PropertyName="color" blue="99" green="ff" red="33" type="rgb"/>
+                                          <Color PropertyName="color" blue="95" green="0" red="f2" type="rgb"/>
                                         </TitledBorder>
                                       </Border>
                                     </Property>
@@ -1094,6 +1176,7 @@
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/gear16.png"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="Generated Clip Properties"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -1220,6 +1303,7 @@
                                                 <StringItem index="4" value="Item 5"/>
                                               </StringArray>
                                             </Property>
+                                            <Property name="enabled" type="boolean" value="false"/>
                                           </Properties>
                                         </Component>
                                       </SubComponents>
@@ -1230,6 +1314,7 @@
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/gear16.png"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="Properties"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton7">
@@ -1238,6 +1323,7 @@
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/x16.png"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="Remove"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton8">
@@ -1246,6 +1332,7 @@
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/up16.png"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="Up"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton9">
@@ -1254,6 +1341,7 @@
                                           <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/down16.png"/>
                                         </Property>
                                         <Property name="text" type="java.lang.String" value="Down"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -1294,11 +1382,13 @@
                                     <Component class="javax.swing.JButton" name="jButton18">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" value="Spin"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                     <Component class="javax.swing.JButton" name="jButton19">
                                       <Properties>
                                         <Property name="text" type="java.lang.String" value="Color Curve"/>
+                                        <Property name="enabled" type="boolean" value="false"/>
                                       </Properties>
                                     </Component>
                                   </SubComponents>
@@ -1443,6 +1533,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Group"/>
                             <Property name="toolTipText" type="java.lang.String" value="Groups clips into a group (another type of clip). Clips must be the same length. [G]"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
@@ -1454,6 +1545,7 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Ungroup"/>
                             <Property name="toolTipText" type="java.lang.String" value="Dissolves ALL currently selected groups. [U]"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
@@ -1467,11 +1559,49 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Split"/>
                             <Property name="toolTipText" type="java.lang.String" value="Splits a clip into two pieces. [S]"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JToolBar$Separator" name="jSeparator4">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton21">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/filmadd16.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Add Video Track"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton23">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/soundadd16.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Add Audio Track"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator12">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="jButton24">
+                          <Properties>
+                            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                              <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/trash16.png"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="Delete Track"/>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="focusable" type="boolean" value="false"/>
+                            <Property name="verticalTextPosition" type="int" value="3"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JToolBar$Separator" name="jSeparator13">
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel21">
                           <Properties>
@@ -1503,6 +1633,11 @@
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="timelineContainerPanel">
+                      <Properties>
+                        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                          <Color id="Default Cursor"/>
+                        </Property>
+                      </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
                           <JSplitPaneConstraints position="right"/>

@@ -16,4 +16,6 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
 
     private static final long serialVersionUID = 1L;
 
+    public JxTimeline() {
+    }
 }

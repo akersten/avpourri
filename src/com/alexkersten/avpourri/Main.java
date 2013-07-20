@@ -16,6 +16,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Main {
 
+    //Branding
+    public static String APPLICATION_TITLE = "AVpourri";
+    
+    //Current version
+    public static String VERSION = "0.0.0.0";
+    
+    //Branch
+    public static String BRANCH = "Dev";
+    
     //The singleton runtime instance which ties everything together.
     private static AVPRuntime runtime;
 
