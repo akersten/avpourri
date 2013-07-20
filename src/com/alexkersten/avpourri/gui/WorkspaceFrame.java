@@ -123,7 +123,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
-        jPanel10 = new javax.swing.JPanel();
+        timelineContainerPanel = new javax.swing.JPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jToggleButton4 = new javax.swing.JToggleButton();
         mainMenuBar = new javax.swing.JMenuBar();
@@ -149,6 +149,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -554,7 +556,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         jTabbedPane4.addTab("Clip Properties", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png")), jPanel5); // NOI18N
@@ -743,18 +745,18 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jSplitPane4.setTopComponent(jToolBar2);
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout timelineContainerPanelLayout = new javax.swing.GroupLayout(timelineContainerPanel);
+        timelineContainerPanel.setLayout(timelineContainerPanelLayout);
+        timelineContainerPanelLayout.setHorizontalGroup(
+            timelineContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1450, Short.MAX_VALUE)
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        timelineContainerPanelLayout.setVerticalGroup(
+            timelineContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 301, Short.MAX_VALUE)
         );
 
-        jSplitPane4.setRightComponent(jPanel10);
+        jSplitPane4.setRightComponent(timelineContainerPanel);
 
         javax.swing.GroupLayout TimelinePanelLayout = new javax.swing.GroupLayout(TimelinePanel);
         TimelinePanel.setLayout(TimelinePanelLayout);
@@ -871,6 +873,16 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem10);
 
         mainMenuBar.add(jMenu1);
+
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        jMenu3.setText("Tools");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        jMenuItem2.setText("Item 1");
+        jMenuItem2.setEnabled(false);
+        jMenu3.add(jMenuItem2);
+
+        mainMenuBar.add(jMenu3);
 
         jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/question16.png"))); // NOI18N
         jMenu5.setText("Help");
@@ -1001,6 +1013,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -1012,6 +1025,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -1019,7 +1033,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1065,5 +1078,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JTree jTree1;
     private javax.swing.JMenuBar mainMenuBar;
+    private javax.swing.JPanel timelineContainerPanel;
     // End of variables declaration//GEN-END:variables
 }

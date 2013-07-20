@@ -1,0 +1,3 @@
+The timeline is composed of three components - the Timeline, Tracks , and Clips.
+Timeline contains Tracks, which contain Clips. I think this should make things
+easiest for implementing in swing.
