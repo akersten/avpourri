@@ -5,6 +5,8 @@
  */
 package com.alexkersten.avpourri.media.decoders;
 
+import java.awt.image.BufferedImage;
+
 /**
  * As we walk down the ladder of abstraction, we need to solidify our internal
  * data representation - video frames need to be able to be quickly inserted
@@ -19,4 +21,33 @@ package com.alexkersten.avpourri.media.decoders;
  * @author Alex Kersten
  */
 public class VideoFrame extends MediaFrame {
+
+    private BufferedImage image;
+
+    private String debugInfo;
+
+    public VideoFrame(BufferedImage image) {
+        this.image = image;
+    }
+
+    /**
+     * @return the image
+     */
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    /**
+     * @return the debugInfo
+     */
+    public String getDebugInfo() {
+        return debugInfo;
+    }
+
+    /**
+     * @param debugInfo the debugInfo to set
+     */
+    public void setDebugInfo(String debugInfo) {
+        this.debugInfo = debugInfo;
+    }
 }

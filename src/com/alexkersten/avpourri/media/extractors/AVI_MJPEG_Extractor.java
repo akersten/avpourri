@@ -75,6 +75,11 @@ public class AVI_MJPEG_Extractor extends ContainerExtractor {
         //the 8200th byte of the file).
         boolean seenRIFF = false, seenMJPG = false;
 
+        //Temporary to keep track of the position in the file for first offset
+        //reading, need to figure out why reading fc.position() gives us an
+        //IO error...
+        int xx = 0;
+        
         while (fc.read(smallBuff) != -1) {
             //The first thing we should check is the RIFF, so if it hasn't been
             //seen already, it must be the first four bytes - otherwise return
@@ -109,12 +114,13 @@ public class AVI_MJPEG_Extractor extends ContainerExtractor {
                     fc.close();
                     //We're valid if we saw this and an earlier MJPG FourCC.
                     //Set the start of the stream to this location.
-                    streamStartPosition = i;
+                    streamStartPosition = xx * PARSE_BUFFER_SIZE + i;
                     return seenMJPG;
                 }
             }
 
             smallBuff.clear();
+            xx++;
         }
 
         fc.close();

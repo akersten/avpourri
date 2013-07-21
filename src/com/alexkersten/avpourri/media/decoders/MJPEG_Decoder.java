@@ -6,9 +6,16 @@
 package com.alexkersten.avpourri.media.decoders;
 
 import com.alexkersten.avpourri.media.extractors.AVI_MJPEG_Extractor;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import javax.imageio.ImageIO;
+import sun.awt.image.ToolkitImage;
 
 /**
  * From an MJPEG stream, we'll look for the individual JPEG headers and extract
@@ -21,11 +28,6 @@ public class MJPEG_Decoder extends StreamDecoder {
 
     //For stream-read mode, this is how long the read-buffer will be.
     private static int STREAM_BUFFER_SIZE = 1048576;
-
-    //How big do we think a JFIF could ever be? Probably will need to be updated
-    //once we start considering exotic resolutions... Let's go with 4MiB for
-    //now...
-    private static int JFIF_BUFFER_SIZE = 4194304;
 
     //The container extractor which took care of finding the stream start
     //position for us.
@@ -43,7 +45,7 @@ public class MJPEG_Decoder extends StreamDecoder {
     private ByteBuffer streamBuff;
 
     /**
-     * In case we don't use the same class for MJPEG2000, we'll want to make a
+     * In case we use the same class for MJPEG2000, we'll want to make a
      * separate constructor.
      */
     public MJPEG_Decoder(AVI_MJPEG_Extractor extractor) {
@@ -58,15 +60,25 @@ public class MJPEG_Decoder extends StreamDecoder {
 
     /**
      * (Re)Sets the streamPosition to the beginning of the JFIF stream which was
-     * found by the extractor earlier.
+     * found by the extractor earlier and opens the file channel.
      *
      * @return boolean If the stream was successfully initiated (a JFIF was
      * found in the file and its position was queued for use of nextFrame()).
+     * @throws IOException If something horrible happens while trying to open
+     * the file channel.
      */
     @Override
     public boolean startStream() throws IOException {
         streamPosition = extractor.getStreamStartPosition();
-        return (streamPosition != -1);
+
+        if (getStreamPosition() == -1) {
+            return false;
+        }
+
+        stream = FileChannel.open(extractor.getFileOnDisk());
+        streamBuff = ByteBuffer.allocate(STREAM_BUFFER_SIZE);
+
+        return true;
     }
 
     /**
@@ -81,14 +93,13 @@ public class MJPEG_Decoder extends StreamDecoder {
      * stream.
      */
     @Override
-    public MediaFrame getNextFrame() throws IOException {
+    public VideoFrame getNextFrame() throws IOException {
         //We should have a next frame set by now...
-        if (streamPosition == -1) {
+        if (getStreamPosition() == -1) {
             //End of stream or not set up yet.
             return null;
         }
 
-        return null;
 
         //We need to reconstruct an entire JFIF which may or may not be entirely
         //inside the buffer...
@@ -115,9 +126,122 @@ public class MJPEG_Decoder extends StreamDecoder {
         //Sadly we don't know the size of these ahead of time, at least in
         //the format I looked at. Oh well.
         //BUG: If these are not 4-aligned, this could be bad.
-        
+
         //tl;dr: Start at the streamPosition and read from SOI to EOI, put that
         //into a MediaFrame, advance streamPosition to the next SOI.
+
+        //But we'll just do it the proper way actually.
+        //However, we definitely need to build a cache/lookup table once we've
+        //gone through it once... Can probably save this as a file and read it 
+        //back after multiple project closings/reopenings but will ahve to be
+        //careful when parsing it.
+
+        int bytesRead = 0;
+        VideoFrame frameToReturn = null;
+
+        //If we know we're at the start of a JPEG already... The JFIF objects
+        //inside an MJPG (at least the MSI Afterburner-created ones) are pretty 
+        //much... just JPEG files... and ImageIO can read them, and is smart
+        //enough to stop when it finds an EOI. Now, if only it could tell us
+        //where that EOI is, but I digress.
+        /*FileInputStream is = new FileInputStream(extractor.getFileOnDisk().toFile());
+         is.getChannel().position(streamPosition);
         
+         BufferedImage thisFrame = ImageIO.read(is);
+        
+         frameToReturn = new VideoFrame(thisFrame); 
+         frameToReturn.setDebugInfo("" + streamPosition);
+        
+         is.close();
+
+         //Starting after the image header we  just read...
+         streamPosition += 4;
+         stream.position(streamPosition);
+         */
+        stream.position(getStreamPosition());
+        //...find the next header.
+        while ((bytesRead = stream.read(streamBuff)) != -1) {
+            streamBuff.flip();
+
+            //Temporary: grab the image from the bytes in the array here and
+            //just hope that the whole thing made it... It probably did if our
+            //buffer is large enough
+            //TODO/BUG: make this more robust and able to get frames that are
+            //larger than our buffer or that start near the end of a buffer.
+            InputStream in = new ByteArrayInputStream(streamBuff.array());
+            Image tmpImg = ImageIO.read(in);
+            BufferedImage bi = null;
+            if (tmpImg != null) {
+                bi = new BufferedImage(96, 54, BufferedImage.TYPE_INT_RGB);
+                Graphics2D g = bi.createGraphics();
+                g.drawImage(tmpImg, 0, 0, 96, 54, null);
+                g.dispose();
+            } else {
+                System.err.println("NULL");
+            }
+
+            in.close();
+
+            frameToReturn = new VideoFrame(bi);
+            frameToReturn.setDebugInfo("" + getStreamPosition());
+
+            //Set i to 4 to avoid looping on the current header...
+            for (int i = 4; i < bytesRead; i++) {
+
+                //If the end sequence is in the header, get out
+                //BUG: If the end sequence is split across two buffers, we're
+                //out of luck and we'll lose this frame; hopefully it won't be 
+                //(fix is just checking while we're near the end but that's far
+                //too much work).
+                if (i + 10 > STREAM_BUFFER_SIZE) {
+                    //We're near the end of the buffer - don't check for new
+                    //frames here because we'll overrun it when we reach out and
+                    //look at bytes. This is a naive solution and we'll miss a
+                    //frame here and there but good enough for now.
+                    //FIXME: Don't do this.
+                    break;
+                }
+
+                try {
+                    if (streamBuff.getInt(i) == 0xFFD8FFE0) {
+                        //Make SURE it's a JFIF because this pattern _CAN_ randomly
+                        //appear in the stream.  (Yes, I encountered this while
+                        //debugging).
+                        if (streamBuff.getInt(i + 6) != 0x4A464946) {
+                            //Get outta here!
+                            continue;
+                        }
+
+                        //We need to set the stream position back a little bit,
+                        //since we found where we want to be in part of the file that
+                        //we had already read.
+                        streamPosition = stream.position() + i - bytesRead;
+                        System.out.println("" + getStreamPosition());
+
+                        //if we find it, return early with the frame
+                        streamBuff.clear();
+                        return frameToReturn;
+                    }
+                } catch (IndexOutOfBoundsException iboob) {
+                    //FIXME: This shouldn't be happening and this is only here
+                    //for debug...
+                    System.err.println("IOOB: stream/buffer position: " + stream.position() + " / " + streamBuff.position() + " buffer offset: " + i);
+                    return null;
+                }
+            }
+            streamBuff.clear();
+        }
+
+        //Didn't find anything, so stream position is -1 and we're done.
+        streamPosition = -1;
+        stream.close();
+        return frameToReturn;
+    }
+
+    /**
+     * @return the streamPosition
+     */
+    public long getStreamPosition() {
+        return streamPosition;
     }
 }

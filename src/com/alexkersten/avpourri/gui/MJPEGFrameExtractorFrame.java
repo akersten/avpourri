@@ -13,11 +13,19 @@ package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.Main;
 import com.alexkersten.avpourri.media.decoders.MJPEG_Decoder;
+import com.alexkersten.avpourri.media.decoders.VideoFrame;
 import com.alexkersten.avpourri.media.extractors.AVI_MJPEG_Extractor;
+import java.awt.Color;
+import java.awt.Component;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -39,6 +47,8 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
+
+        frameList.setLayoutOrientation(JList.VERTICAL_WRAP);
 
         this.setLocationRelativeTo(null);
     }
@@ -71,11 +81,6 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
             }
         });
 
-        frameList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         frameList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listScrollPane.setViewportView(frameList);
 
@@ -96,14 +101,14 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listScrollPane)
                     .addComponent(fileLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(extractButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(instructionLabel)
-                        .addGap(0, 185, Short.MAX_VALUE))
+                        .addGap(0, 303, Short.MAX_VALUE))
                     .addComponent(openButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addComponent(listScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,8 +122,7 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(extractButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(listScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,7 +135,8 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
             lastExtractor = new AVI_MJPEG_Extractor(jf.getSelectedFile().toPath());
             try {
                 if (lastExtractor.setExtractionParametersAndValidate()) {
-                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath());
+                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath()
+                                      + " offset " + lastExtractor.getStreamStartPosition());
                     extractButton.setEnabled(true);
                 } else {
                     fileLabel.setText("Not an MJPEG in an AVI. Select another file.");
@@ -150,12 +155,26 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         }
 
         MJPEG_Decoder dec = new MJPEG_Decoder(lastExtractor);
+
+        DefaultListModel<VideoFrame> listModel = new DefaultListModel<>();
+
         try {
             dec.startStream();
+
+            VideoFrame frame;
+            while ((frame = dec.getNextFrame()) != null) {
+                //Get all the frames...
+                listModel.addElement(frame);
+            }
+
+
         } catch (IOException ioe) {
 
-            JOptionPane.showMessageDialog(this, ioe.getLocalizedMessage(), "Exception", 0);
+            JOptionPane.showMessageDialog(this, ioe.getLocalizedMessage(), "Exception @ " + dec.getStreamPosition(), 0);
         }
+
+        frameList.setCellRenderer(new FrameThumbnailListRenderer());
+        frameList.setModel(listModel);
         //dec.startStream();
 
     }//GEN-LAST:event_extractButtonActionPerformed
@@ -168,4 +187,34 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
     private javax.swing.JButton openButton;
     // End of variables declaration//GEN-END:variables
 
+}
+
+class FrameThumbnailListRenderer extends JLabel implements ListCellRenderer {
+
+    @Override
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        VideoFrame obj = (VideoFrame) value;
+        if (isSelected) {
+            setBackground(Color.BLUE);
+            setForeground(Color.WHITE);
+        } else {
+            setBackground(list.getBackground());
+            setForeground(list.getForeground());
+        }
+
+
+        if (obj.getImage() != null) {
+            ImageIcon icon = new ImageIcon(obj.getImage());
+            setIcon(icon);
+        }
+
+        setText("");
+        if (obj.getImage() == null) {
+            setText("[NULL]");
+        }
+
+        setText(getText() + "Offset " + obj.getDebugInfo());
+
+        return this;
+    }
 }
