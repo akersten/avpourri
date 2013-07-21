@@ -7,6 +7,7 @@ package com.alexkersten.avpourri;
 
 import com.alexkersten.avpourri.gui.CustomTheme;
 import com.alexkersten.avpourri.gui.WorkspaceFrame;
+import com.alexkersten.avpourri.project.Project;
 
 /**
  * The "central class" runtime for AVpourri.
@@ -15,14 +16,15 @@ import com.alexkersten.avpourri.gui.WorkspaceFrame;
  */
 public class AVPRuntime {
 
-    //Whether there are unsaved changes or not.
-    private boolean projectDirty = false;
-
+    //The theme for the program.
     private CustomTheme customTheme;
+
+    //The currently open project.
+    private Project project;
 
     public AVPRuntime() {
         customTheme = new CustomTheme();
-        
+
         WorkspaceFrame w = new WorkspaceFrame(this);
         w.setVisible(true);
     }
@@ -35,16 +37,16 @@ public class AVPRuntime {
     }
 
     /**
-     * @return the projectDirty
+     * @return the project
      */
-    public boolean isProjectDirty() {
-        return projectDirty;
+    public Project getProject() {
+        return project;
     }
 
     /**
-     * @param projectDirty the projectDirty to set
+     * @param project the project to set
      */
-    public void setProjectDirty(boolean projectDirty) {
-        this.projectDirty = projectDirty;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

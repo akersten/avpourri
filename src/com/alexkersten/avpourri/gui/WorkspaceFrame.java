@@ -6,21 +6,19 @@ package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
 import com.alexkersten.avpourri.Main;
-import com.alexkersten.avpourri.gui.custom.JxClip;
-import com.alexkersten.avpourri.gui.custom.JxTimeline;
-import com.alexkersten.avpourri.gui.custom.JxTrack;
+import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author akersten
+ * @author Alex Kersten
  */
 public class WorkspaceFrame extends javax.swing.JFrame {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private AVPRuntime runtime;
 
     /**
@@ -28,7 +26,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
      */
     public WorkspaceFrame(AVPRuntime runtime) {
         this.runtime = runtime;
-        
+
         initComponents();
         try {
             setIconImage(ImageIO.read(
@@ -36,14 +34,20 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
-        
+
         initCustomComponents();
-        
+
         this.setLocationRelativeTo(null);
     }
-    
+
     private void initCustomComponents() {
-        timelineContainerPanel.add(new JxTimeline<JxTrack<JxClip>>());
+    }
+
+    /**
+     * Reads all the information from the project's internal media tree and
+     * represents it in the GUI tree.
+     */
+    public void updateMediaTree() {
     }
 
     /**
@@ -85,8 +89,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jSplitPane3 = new javax.swing.JSplitPane();
-        jTabbedPane3 = new javax.swing.JTabbedPane();
+        playbackSplitPane = new javax.swing.JSplitPane();
+        rightPlaybackTabbedPane = new javax.swing.JTabbedPane();
         PreviewPanel = new javax.swing.JPanel();
         jToolBar3 = new javax.swing.JToolBar();
         jButton13 = new javax.swing.JButton();
@@ -95,8 +99,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
-        jTabbedPane4 = new javax.swing.JTabbedPane();
-        jPanel10 = new javax.swing.JPanel();
+        leftPlaybackTabbedPane = new javax.swing.JTabbedPane();
+        sourcePreviewPanel = new javax.swing.JPanel();
         jToolBar4 = new javax.swing.JToolBar();
         jButton20 = new javax.swing.JButton();
         jSeparator11 = new javax.swing.JToolBar.Separator();
@@ -181,8 +185,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
+        toolsMenu = new javax.swing.JMenu();
+        mjpegFrameExtractorMenuItem = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -315,6 +319,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         treeNode2.add(treeNode3);
         treeNode1.add(treeNode2);
         mediaTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        mediaTree.setEnabled(false);
         mediaTreeScrollPane.setViewportView(mediaTree);
 
         mediaMetadataSplitPane.setLeftComponent(mediaTreeScrollPane);
@@ -378,8 +383,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         clipsPreviewSplitPane.setLeftComponent(clipsTabbedPane);
 
-        jSplitPane3.setBackground(new java.awt.Color(30, 30, 30));
-        jSplitPane3.setDividerLocation(468);
+        playbackSplitPane.setBackground(new java.awt.Color(30, 30, 30));
+        playbackSplitPane.setDividerLocation(468);
 
         PreviewPanel.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -439,18 +444,19 @@ public class WorkspaceFrame extends javax.swing.JFrame {
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane3.addTab("Render Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), PreviewPanel); // NOI18N
+        rightPlaybackTabbedPane.addTab("Render Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), PreviewPanel); // NOI18N
 
-        jSplitPane3.setRightComponent(jTabbedPane3);
+        playbackSplitPane.setRightComponent(rightPlaybackTabbedPane);
 
-        jTabbedPane4.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
+        leftPlaybackTabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+        sourcePreviewPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         jToolBar4.setRollover(true);
 
         jButton20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/play16.png"))); // NOI18N
         jButton20.setToolTipText("Pauses or resumes the timeline playback. [Space]");
+        jButton20.setEnabled(false);
         jButton20.setFocusable(false);
         jButton20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton20.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -459,25 +465,26 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/last16.png"))); // NOI18N
         jButton22.setToolTipText("Sends the marker to the beginning of the most recent clip. [Page Up]");
+        jButton22.setEnabled(false);
         jButton22.setFocusable(false);
         jButton22.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton22.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar4.add(jButton22);
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout sourcePreviewPanelLayout = new javax.swing.GroupLayout(sourcePreviewPanel);
+        sourcePreviewPanel.setLayout(sourcePreviewPanelLayout);
+        sourcePreviewPanelLayout.setHorizontalGroup(
+            sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+        sourcePreviewPanelLayout.setVerticalGroup(
+            sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sourcePreviewPanelLayout.createSequentialGroup()
                 .addGap(0, 390, Short.MAX_VALUE)
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane4.addTab("Source Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), jPanel10); // NOI18N
+        leftPlaybackTabbedPane.addTab("Source Preview (5760x1080@30p)", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png")), sourcePreviewPanel); // NOI18N
 
         jPanel6.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -657,7 +664,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane1)
         );
 
-        jTabbedPane4.addTab("Clip Properties", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png")), jPanel5); // NOI18N
+        leftPlaybackTabbedPane.addTab("Clip Properties", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png")), jPanel5); // NOI18N
 
         CurrentEffectsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Current Effects"));
 
@@ -773,7 +780,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
-        jTabbedPane4.addTab("Clip Effects", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/star16.png")), ClipEffectsContainerPanel); // NOI18N
+        leftPlaybackTabbedPane.addTab("Clip Effects", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/star16.png")), ClipEffectsContainerPanel); // NOI18N
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -786,11 +793,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             .addGap(0, 415, Short.MAX_VALUE)
         );
 
-        jTabbedPane4.addTab("Clip Keyframing", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/frame16.png")), jPanel9); // NOI18N
+        leftPlaybackTabbedPane.addTab("Clip Keyframing", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/frame16.png")), jPanel9); // NOI18N
 
-        jSplitPane3.setLeftComponent(jTabbedPane4);
+        playbackSplitPane.setLeftComponent(leftPlaybackTabbedPane);
 
-        clipsPreviewSplitPane.setRightComponent(jSplitPane3);
+        clipsPreviewSplitPane.setRightComponent(playbackSplitPane);
 
         topBottomSplitPane.setTopComponent(clipsPreviewSplitPane);
 
@@ -804,6 +811,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton2.setSelected(true);
         jToggleButton2.setText("Crop");
         jToggleButton2.setToolTipText("When resizing a clip, cut parts out instead of changing its speed. [Q]");
+        jToggleButton2.setEnabled(false);
         jToggleButton2.setFocusable(false);
         jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton2);
@@ -812,6 +820,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/time16.png"))); // NOI18N
         jToggleButton3.setText("Scale");
         jToggleButton3.setToolTipText("When resizing a clip, adjust its playback speed instead of cropping. [W]");
+        jToggleButton3.setEnabled(false);
         jToggleButton3.setFocusable(false);
         jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton3);
@@ -821,6 +830,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton1.setSelected(true);
         jToggleButton1.setText("Snap");
         jToggleButton1.setToolTipText("Snap clips to each other when they're close. Otherwise, snap to 1/framerate increments. [R]");
+        jToggleButton1.setEnabled(false);
         jToggleButton1.setFocusable(false);
         jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton1);
@@ -1029,20 +1039,24 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         mainMenuBar.add(jMenu6);
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
-        jMenu3.setText("Tools");
-        jMenu3.setEnabled(false);
+        toolsMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        toolsMenu.setText("Tools");
 
-        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
-        jMenuItem9.setText("aaaaaaaaaaaa");
-        jMenu3.add(jMenuItem9);
-        jMenu3.add(jSeparator10);
+        mjpegFrameExtractorMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
+        mjpegFrameExtractorMenuItem.setText("MJPEG Frame Extractor");
+        mjpegFrameExtractorMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mjpegFrameExtractorMenuItemActionPerformed(evt);
+            }
+        });
+        toolsMenu.add(mjpegFrameExtractorMenuItem);
+        toolsMenu.add(jSeparator10);
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("Debug Console");
-        jMenu3.add(jCheckBoxMenuItem1);
+        toolsMenu.add(jCheckBoxMenuItem1);
 
-        mainMenuBar.add(jMenu3);
+        mainMenuBar.add(toolsMenu);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/film16.png"))); // NOI18N
         jMenu1.setText("Render");
@@ -1096,38 +1110,54 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-    
+
     private void globalSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_globalSettingsMenuItemActionPerformed
         new GlobalSettingsFrame(runtime).setVisible(true);
     }//GEN-LAST:event_globalSettingsMenuItemActionPerformed
-    
+
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
-        if (runtime.isProjectDirty()) {
+        if (runtime.getProject() != null
+            && runtime.getProject().isProjectDirty()) {
+            
             int response = JOptionPane.showConfirmDialog(
                     this,
                     "TODO: There are unsaved changes - save them?",
                     "Confirm Exit", JOptionPane.YES_NO_CANCEL_OPTION);
-            
+
             if (response == JOptionPane.YES_OPTION) {
                 //TODO: Save
             }
-            
+
             if (response == JOptionPane.CANCEL_OPTION) {
                 return;
             }
         }
-        
+
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
-    
+
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         new AboutFrame().setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
-    
+
     private void addSourceFileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSourceFileMenuItemActionPerformed
         JFileChooser js = new JFileChooser(System.getProperty("user.home"));
-        js.showOpenDialog(this);
+        js.setMultiSelectionEnabled(true);
+        int result = js.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            for (File f : js.getSelectedFiles()) {
+                //Add each file to our media tree - if it's not media, that'll
+                //be handled later - we want to be as liberal as possible with
+                //our file selection dialogs.
+            }
+        }
+
     }//GEN-LAST:event_addSourceFileMenuItemActionPerformed
+
+    private void mjpegFrameExtractorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mjpegFrameExtractorMenuItemActionPerformed
+        new MJPEGFrameExtractorFrame().setVisible(true);
+    }//GEN-LAST:event_mjpegFrameExtractorMenuItemActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClipEffectsContainerPanel;
     private javax.swing.JPanel ClipEffectsPanel;
@@ -1197,7 +1227,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
@@ -1211,8 +1240,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
@@ -1236,11 +1263,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator8;
     private javax.swing.JPopupMenu.Separator jSeparator9;
     private javax.swing.JSlider jSlider1;
-    private javax.swing.JSplitPane jSplitPane3;
     private javax.swing.JSplitPane jSplitPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -1254,6 +1278,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;
     private javax.swing.JToolBar jToolBar4;
+    private javax.swing.JTabbedPane leftPlaybackTabbedPane;
     private javax.swing.JMenuItem licensingMenuItem;
     private javax.swing.JMenuBar mainMenuBar;
     private javax.swing.JPanel mediaMetadataPanel;
@@ -1262,7 +1287,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JTree mediaTree;
     private javax.swing.JScrollPane mediaTreeScrollPane;
     private javax.swing.JPanel metadataPanel;
+    private javax.swing.JMenuItem mjpegFrameExtractorMenuItem;
+    private javax.swing.JSplitPane playbackSplitPane;
+    private javax.swing.JTabbedPane rightPlaybackTabbedPane;
+    private javax.swing.JPanel sourcePreviewPanel;
     private javax.swing.JPanel timelineContainerPanel;
+    private javax.swing.JMenu toolsMenu;
     private javax.swing.JSplitPane topBottomSplitPane;
     // End of variables declaration//GEN-END:variables
 }
