@@ -27,7 +27,7 @@ public abstract class ContainerExtractor {
      * superclass is only responsible for keeping track of which file that is.
      *
      * @param p The path to a container file, probably. Will be checked later
-     * with downstream implementations of isValidContainer().
+     * with downstream implementations of setExtractionParametersAndValidate().
      */
     ContainerExtractor(Path p) {
         if (Files.isDirectory(p)) {
@@ -48,7 +48,7 @@ public abstract class ContainerExtractor {
      * @return Whether the constructed extractor is operating on what we presume
      * to be a valid container file.
      */
-    public abstract boolean isValidContainer() throws IOException;
+    public abstract boolean setExtractionParametersAndValidate() throws IOException;
 
     /**
      * @return the fileOnDisk

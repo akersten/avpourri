@@ -5,6 +5,9 @@
  */
 package com.alexkersten.avpourri.media.decoders;
 
+import com.alexkersten.avpourri.media.extractors.ContainerExtractor;
+import java.io.IOException;
+
 /**
  * The purpose of the decoder interface is to provide a common way to access
  * segments of media which may be in many different formats. However, both audio
@@ -28,8 +31,58 @@ package com.alexkersten.avpourri.media.decoders;
  *
  * Audio is a bit trickier and I haven't thought about it yet.
  *
+ * Anyway, these decoders are kind of in the middle of the chain of abstraction:
+ * you'll need to give them a ContainerExtractor object from which it can
+ * request a stream to decode. Then you'll be able to pull individual frames.
+ *
+ * This can get nasty if we're pulling a bunch of frames from a file and calling
+ * getNthFrame for every single one of them (random access). We'll have to
+ * devise a caching solution. The best option so far is to kind of open the file
+ * as a stream, then read sequentially - do this as often as possible, rarely do
+ * we want to call getNthFrame a bunch, because that'll require seeking to
+ * random parts of the file - unless implementations of StreamDecoder keep cue
+ * sheets of where in the file each frame appeared. Which could be good, but
+ * it's still random-ish access. So we'll try to streamline it by providing a
+ * few methods that start, resume, and stop a stream. (startStream,
+ * getNextFrame).
+ *
  * @author Alex Kersten
  */
-public interface StreamDecoder {
-    public MediaFrame getNthFrame(int n);
+public abstract class StreamDecoder {
+
+    private ContainerExtractor extractor;
+
+    public StreamDecoder(ContainerExtractor extractor) {
+        this.extractor = extractor;
+    }
+
+    public abstract MediaFrame getNthFrame(int n);
+
+    //Stream-read methods. These will be better performant and less heavy on
+    //disk IO since they're not as random access as getNthFrame.
+    /**
+     * Starts a stream-reading profile for this decoder. In the general case, it
+     * should create a buffer for storing junk read in from the file, and begin
+     * sorting out as many frames as it can into a cache/internal buffer.
+     *
+     * @return boolean Status of the stream initialization.
+     */
+    public abstract boolean startStream() throws IOException;
+
+    /**
+     * Grabs the next frame stored in the internal stream buffer, and causes the
+     * stream to advance further in the file if necessary. Returns null if the
+     * stream hasn't been started or if we've reached the end of the file.
+     *
+     * @return The next frame in the buffer
+     */
+    public abstract MediaFrame getNextFrame() throws IOException;
+
+    //End of stream-read methods.
+    /**
+     * @return the container
+     */
+    public ContainerExtractor getExtractor() {
+        return extractor;
+    }
 }

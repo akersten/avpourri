@@ -12,7 +12,12 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.Main;
+import com.alexkersten.avpourri.media.decoders.MJPEG_Decoder;
+import com.alexkersten.avpourri.media.extractors.AVI_MJPEG_Extractor;
+import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,6 +26,8 @@ import javax.imageio.ImageIO;
 @SuppressWarnings("serial")
 public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
 
+    private AVI_MJPEG_Extractor lastExtractor;
+
     /**
      * Creates new form MJPEGFrameExtractorFrame
      */
@@ -28,7 +35,7 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         initComponents();
         try {
             setIconImage(ImageIO.read(
-                    this.getClass().getResource("icons/film16.png")));
+                    this.getClass().getResource("icons/icon16.png")));
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
@@ -45,30 +52,42 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        instructionLabel = new javax.swing.JLabel();
+        openButton = new javax.swing.JButton();
+        listScrollPane = new javax.swing.JScrollPane();
+        frameList = new javax.swing.JList();
+        fileLabel = new javax.swing.JLabel();
+        extractButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Main.APPLICATION_TITLE + " MJPEG Frame Extraction Tool");
 
-        jLabel1.setText("This is a test of my AVI -> MJPEG stream/frame extraction.");
+        instructionLabel.setText("This is a test of my AVI -> MJPEG stream/frame extraction.");
 
-        jButton1.setText("Open MJPEG streams in an AVI");
+        openButton.setText("1) Open MJPEG stream in an AVI");
+        openButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openButtonActionPerformed(evt);
+            }
+        });
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        frameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        frameList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listScrollPane.setViewportView(frameList);
 
-        jLabel2.setText("No file selected");
+        fileLabel.setText("No file selected");
 
-        jButton2.setText("Extract");
+        extractButton.setText("2) Extract");
+        extractButton.setEnabled(false);
+        extractButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extractButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,41 +96,76 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listScrollPane)
+                    .addComponent(fileLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(extractButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(instructionLabel)
+                        .addGap(0, 185, Short.MAX_VALUE))
+                    .addComponent(openButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addComponent(instructionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(openButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(fileLabel)
+                .addGap(18, 18, 18)
+                .addComponent(extractButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(listScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
+        JFileChooser jf = new JFileChooser();
+        int result = jf.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            lastExtractor = new AVI_MJPEG_Extractor(jf.getSelectedFile().toPath());
+            try {
+                if (lastExtractor.setExtractionParametersAndValidate()) {
+                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath());
+                    extractButton.setEnabled(true);
+                } else {
+                    fileLabel.setText("Not an MJPEG in an AVI. Select another file.");
+                }
+            } catch (IOException ioe) {
+                fileLabel.setText("IO Exception");
+            }
+        }
+    }//GEN-LAST:event_openButtonActionPerformed
+
+    private void extractButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractButtonActionPerformed
+        //We'll extract the frames via a stream-read from our stream decoder;
+        //basically faster than calling getNthFrame(1), getNthFrame(2)...
+        if (lastExtractor == null) {
+            return;
+        }
+
+        MJPEG_Decoder dec = new MJPEG_Decoder(lastExtractor);
+        try {
+            dec.startStream();
+        } catch (IOException ioe) {
+
+            JOptionPane.showMessageDialog(this, ioe.getLocalizedMessage(), "Exception", 0);
+        }
+        //dec.startStream();
+
+    }//GEN-LAST:event_extractButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton extractButton;
+    private javax.swing.JLabel fileLabel;
+    private javax.swing.JList frameList;
+    private javax.swing.JLabel instructionLabel;
+    private javax.swing.JScrollPane listScrollPane;
+    private javax.swing.JButton openButton;
     // End of variables declaration//GEN-END:variables
 
 }
