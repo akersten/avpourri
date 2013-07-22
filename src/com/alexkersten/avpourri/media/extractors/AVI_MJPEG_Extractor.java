@@ -79,7 +79,7 @@ public class AVI_MJPEG_Extractor extends ContainerExtractor {
         //reading, need to figure out why reading fc.position() gives us an
         //IO error...
         int xx = 0;
-        
+
         while (fc.read(smallBuff) != -1) {
             //The first thing we should check is the RIFF, so if it hasn't been
             //seen already, it must be the first four bytes - otherwise return
