@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import javax.imageio.ImageIO;
-import sun.awt.image.ToolkitImage;
 
 /**
  * From an MJPEG stream, we'll look for the individual JPEG headers and extract
