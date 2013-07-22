@@ -6,6 +6,8 @@ package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
 import com.alexkersten.avpourri.Main;
+import com.alexkersten.avpourri.gui.custom.JxTimeline;
+import java.awt.BorderLayout;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -41,6 +43,10 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     }
 
     private void initCustomComponents() {
+        //Add the timeline - border layout center so it fills the container
+        timelineContainerPanel.setLayout(new BorderLayout());
+        timelineContainerPanel.add(new JxTimeline(), BorderLayout.CENTER);
+        
     }
 
     /**

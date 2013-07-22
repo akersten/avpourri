@@ -5,6 +5,7 @@
  */
 package com.alexkersten.avpourri.gui.custom;
 
+import java.awt.Color;
 import javax.swing.JList;
 
 /**
@@ -17,5 +18,8 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
     private static final long serialVersionUID = 1L;
 
     public JxTimeline() {
+        this.setLayoutOrientation(JList.VERTICAL);
+        this.setBackground(Color.RED);
+
     }
 }
