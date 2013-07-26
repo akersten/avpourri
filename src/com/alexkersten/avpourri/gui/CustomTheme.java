@@ -20,8 +20,7 @@ public class CustomTheme implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //The default colors.
-    private Color labelColor = new Color(210, 210, 210), inputColor = new Color(229,229,229), farBackgroundColor, nearBackgroundColor;
-   
+    private Color labelColor = new Color(210, 210, 210), inputColor = new Color(229, 229, 229), farBackgroundColor, nearBackgroundColor;
 
     public CustomTheme() {
     }

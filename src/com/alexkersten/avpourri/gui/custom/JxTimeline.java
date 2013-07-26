@@ -19,7 +19,7 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
 
     public JxTimeline() {
         this.setLayoutOrientation(JList.VERTICAL);
-        this.setBackground(Color.RED);
+        this.setBackground(Color.DARK_GRAY);
 
     }
 }
