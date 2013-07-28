@@ -5,7 +5,7 @@
  */
 package com.alexkersten.avpourri.media.decoders;
 
-import com.alexkersten.avpourri.media.extractors.AVI_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.extractors.msiavi.AVIRIFF_MJPEG_Extractor;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -30,7 +30,7 @@ public class MJPEG_Decoder extends StreamDecoder {
 
     //The container extractor which took care of finding the stream start
     //position for us.
-    private AVI_MJPEG_Extractor extractor;
+    private AVIRIFF_MJPEG_Extractor extractor;
 
     //In stream-read mode, where are we? Set by startStream() to the first
     //SOI before the first JFIF it finds to avoid finding "SOI"'s earlier in the
@@ -47,7 +47,7 @@ public class MJPEG_Decoder extends StreamDecoder {
      * In case we use the same class for MJPEG2000, we'll want to make a
      * separate constructor.
      */
-    public MJPEG_Decoder(AVI_MJPEG_Extractor extractor) {
+    public MJPEG_Decoder(AVIRIFF_MJPEG_Extractor extractor) {
         super(extractor);
         this.extractor = extractor;
     }

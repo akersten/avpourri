@@ -1,10 +1,11 @@
 /*
  Project: AVpourri
- File: AVI_MJPEG_Extractor.java (com.alexkersten.avpourri.media.extractors)
+ File: AVIRIFF_MJPEG_Extractor.java (com.alexkersten.avpourri.media.extractors)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.extractors;
+package com.alexkersten.avpourri.media.extractors.msiavi;
 
+import com.alexkersten.avpourri.media.extractors.ContainerExtractor;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
  *
  * @author Alex Kersten
  */
-public class AVI_MJPEG_Extractor extends ContainerExtractor {
+public class AVIRIFF_MJPEG_Extractor extends ContainerExtractor {
 
     //The size of the buffer to use for initial parsing of the container file.
     private static final int PARSE_BUFFER_SIZE = 1024;
@@ -47,7 +48,7 @@ public class AVI_MJPEG_Extractor extends ContainerExtractor {
     //starts - from there we can parse out the individual JFIFs.
     private long streamStartPosition = -1;
 
-    public AVI_MJPEG_Extractor(Path p) {
+    public AVIRIFF_MJPEG_Extractor(Path p) {
         super(p);
     }
 
@@ -132,5 +133,13 @@ public class AVI_MJPEG_Extractor extends ContainerExtractor {
      */
     public long getStreamStartPosition() {
         return streamStartPosition;
+    }
+
+    @Override
+    public int getStreamCount() {
+        //TODO: Support for multiple video streams? Somewhere I read that
+        //multiple video streams wasn't supported in MJPEG in RIFF AVI but that
+        //could be wrong... Will have to look into how it would be implemented.
+        return 1;
     }
 }

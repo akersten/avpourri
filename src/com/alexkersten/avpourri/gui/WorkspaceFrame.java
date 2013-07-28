@@ -194,6 +194,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenuItem17 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         toolsMenu = new javax.swing.JMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         mjpegFrameExtractorMenuItem = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
@@ -346,11 +347,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         importedClipsPanel.setLayout(importedClipsPanelLayout);
         importedClipsPanelLayout.setHorizontalGroup(
             importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(mediaMetadataSplitPane)
         );
         importedClipsPanelLayout.setVerticalGroup(
             importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         clipsTabbedPane.addTab("Imported Clips", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/hier16.png")), importedClipsPanel); // NOI18N
@@ -390,11 +391,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(jScrollPane5)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         clipsTabbedPane.addTab("Generate Clip", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/new16.png")), jPanel2); // NOI18N
@@ -454,12 +455,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         PreviewPanel.setLayout(PreviewPanelLayout);
         PreviewPanelLayout.setHorizontalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
         );
         PreviewPanelLayout.setVerticalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PreviewPanelLayout.createSequentialGroup()
-                .addContainerGap(388, Short.MAX_VALUE)
+                .addContainerGap(390, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -495,12 +496,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         sourcePreviewPanel.setLayout(sourcePreviewPanelLayout);
         sourcePreviewPanelLayout.setHorizontalGroup(
             sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         sourcePreviewPanelLayout.setVerticalGroup(
             sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sourcePreviewPanelLayout.createSequentialGroup()
-                .addGap(0, 388, Short.MAX_VALUE)
+                .addGap(0, 390, Short.MAX_VALUE)
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -677,11 +678,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Properties", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png")), jPanel5); // NOI18N
@@ -793,11 +794,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         ClipEffectsContainerPanel.setLayout(ClipEffectsContainerPanelLayout);
         ClipEffectsContainerPanelLayout.setHorizontalGroup(
             ClipEffectsContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         ClipEffectsContainerPanelLayout.setVerticalGroup(
             ClipEffectsContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Effects", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/star16.png")), ClipEffectsContainerPanel); // NOI18N
@@ -806,11 +807,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Keyframing", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/frame16.png")), jPanel9); // NOI18N
@@ -933,7 +934,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         );
         timelineContainerPanelLayout.setVerticalGroup(
             timelineContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGap(0, 343, Short.MAX_VALUE)
         );
 
         jSplitPane4.setRightComponent(timelineContainerPanel);
@@ -946,7 +947,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         );
         TimelinePanelLayout.setVerticalGroup(
             TimelinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+            .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Timeline", TimelinePanel);
@@ -1075,6 +1076,15 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         toolsMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/window16.png"))); // NOI18N
         toolsMenu.setText("Tools");
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/hier16.png"))); // NOI18N
+        jMenuItem9.setText("AVI (RIFF) Inspector/Extractor [todo: become more generic]");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        toolsMenu.add(jMenuItem9);
+
         jMenuItem3.setText("Media Browser");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1162,7 +1172,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         if (runtime.getProject() != null
-                && runtime.getProject().isProjectDirty()) {
+            && runtime.getProject().isProjectDirty()) {
 
             int response = JOptionPane.showConfirmDialog(
                     this,
@@ -1211,6 +1221,10 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         new MediaBrowserFrame(runtime).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        new ContainerInspectorFrame(runtime).setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClipEffectsContainerPanel;
     private javax.swing.JPanel ClipEffectsPanel;
@@ -1297,6 +1311,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;

@@ -16,6 +16,8 @@ import java.nio.file.Path;
  * them into BufferedImages or the like. This interface provides for the common
  * methods we need.
  *
+ * 
+ *TODO: Is this file necessary? If we're going to have things lke MSIAVI_container
  * @author Alex Kersten
  */
 public abstract class ContainerExtractor {
@@ -29,7 +31,7 @@ public abstract class ContainerExtractor {
      * @param p The path to a container file, probably. Will be checked later
      * with downstream implementations of setExtractionParametersAndValidate().
      */
-    ContainerExtractor(Path p) {
+    public ContainerExtractor(Path p) {
         if (Files.isDirectory(p)) {
             throw new RuntimeException(
                     "Container is a directory: " + p.toString());
@@ -56,4 +58,10 @@ public abstract class ContainerExtractor {
     public Path getFileOnDisk() {
         return fileOnDisk;
     }
+    
+    /**
+     * Returns how many streams we found in this container.
+     * @return The number of streams of this type in this container.
+     */
+    public abstract int getStreamCount();
 }

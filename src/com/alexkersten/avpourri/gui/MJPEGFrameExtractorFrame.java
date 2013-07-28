@@ -14,7 +14,7 @@ package com.alexkersten.avpourri.gui;
 import com.alexkersten.avpourri.Main;
 import com.alexkersten.avpourri.media.decoders.MJPEG_Decoder;
 import com.alexkersten.avpourri.media.decoders.VideoFrame;
-import com.alexkersten.avpourri.media.extractors.AVI_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.extractors.msiavi.AVIRIFF_MJPEG_Extractor;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.IOException;
@@ -34,7 +34,7 @@ import javax.swing.ListCellRenderer;
 @SuppressWarnings("serial")
 public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
 
-    private AVI_MJPEG_Extractor lastExtractor;
+    private AVIRIFF_MJPEG_Extractor lastExtractor;
 
     /**
      * Creates new form MJPEGFrameExtractorFrame
@@ -132,7 +132,7 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            lastExtractor = new AVI_MJPEG_Extractor(jf.getSelectedFile().toPath());
+            lastExtractor = new AVIRIFF_MJPEG_Extractor(jf.getSelectedFile().toPath());
             try {
                 if (lastExtractor.setExtractionParametersAndValidate()) {
                     fileLabel.setText(jf.getSelectedFile().getAbsolutePath()

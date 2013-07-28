@@ -13,6 +13,10 @@ import java.nio.file.Path;
  * that we've located on the disk, but contains some extra information and
  * metadata about it.
  *
+ * MediaFiles will have a container component - once we identify what type a
+ * file is, we can assign it a more specific MediaContainer type, which will
+ * then be able to see into the file and extract MediaStreams.
+ *
  * @author Alex Kersten
  */
 public class MediaFile {
