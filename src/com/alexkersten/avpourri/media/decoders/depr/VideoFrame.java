@@ -3,8 +3,9 @@
  File: VideoFrame.java (com.alexkersten.avpourri.media.decoders)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.decoders;
+package com.alexkersten.avpourri.media.decoders.depr;
 
+import com.alexkersten.avpourri.media.MediaFrame;
 import java.awt.image.BufferedImage;
 
 /**

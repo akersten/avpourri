@@ -1,18 +1,18 @@
 /*
  Project: AVpourri
- File: ContainerInspectorFrame.java (com.alexkersten.avpourri.gui)
+ File: StreamInspectorFrame.java (com.alexkersten.avpourri.gui)
  Author: Alex Kersten
  */
 
 /*
- * ContainerInspectorFrame.java
+ * StreamInspectorFrame.java
  *
  * Created on Jul 27, 2013, 8:34:13 PM
  */
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
-import com.alexkersten.avpourri.media.extractors.msiavi.AVIRIFF_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.extractors.msiavi.depr.AVIRIFF_MJPEG_Extractor;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -22,14 +22,14 @@ import javax.swing.JFileChooser;
  * @author Alex
  */
 @SuppressWarnings("serial")
-public class ContainerInspectorFrame extends javax.swing.JFrame {
+public class StreamInspectorFrame extends javax.swing.JFrame {
 
     private AVPRuntime runtime;
 
     /**
-     * Creates new form ContainerInspectorFrame
+     * Creates new form StreamInspectorFrame
      */
-    public ContainerInspectorFrame(AVPRuntime runtime) {
+    public StreamInspectorFrame(AVPRuntime runtime) {
         this.runtime = runtime;
 
         initComponents();

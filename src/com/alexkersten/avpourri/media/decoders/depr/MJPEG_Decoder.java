@@ -3,9 +3,11 @@
  File: MJPEG_Decoder.java (com.alexkersten.avpourri.media.decoders)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.decoders;
+package com.alexkersten.avpourri.media.decoders.depr;
 
-import com.alexkersten.avpourri.media.extractors.msiavi.AVIRIFF_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.MediaContainer;
+import com.alexkersten.avpourri.media.MediaStream;
+import com.alexkersten.avpourri.media.extractors.msiavi.depr.AVIRIFF_MJPEG_Extractor;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -21,9 +23,12 @@ import javax.imageio.ImageIO;
  * the single images - we'll call each image a frame and that should be good
  * enough.
  *
+ * BROKEN: This file is depricated, we're going to move the decoding to the
+ * MSAVI_Stream file probably
+ *
  * @author Alex Kersten
  */
-public class MJPEG_Decoder extends StreamDecoder {
+public class MJPEG_Decoder extends MediaStream {
 
     //For stream-read mode, this is how long the read-buffer will be.
     private static int STREAM_BUFFER_SIZE = 1048576;
@@ -47,9 +52,8 @@ public class MJPEG_Decoder extends StreamDecoder {
      * In case we use the same class for MJPEG2000, we'll want to make a
      * separate constructor.
      */
-    public MJPEG_Decoder(AVIRIFF_MJPEG_Extractor extractor) {
-        super(extractor);
-        this.extractor = extractor;
+    public MJPEG_Decoder(MediaContainer extractor) {
+        super(extractor, "depricated");
     }
 
     @Override

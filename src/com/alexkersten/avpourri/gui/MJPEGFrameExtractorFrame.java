@@ -12,9 +12,9 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.Main;
-import com.alexkersten.avpourri.media.decoders.MJPEG_Decoder;
-import com.alexkersten.avpourri.media.decoders.VideoFrame;
-import com.alexkersten.avpourri.media.extractors.msiavi.AVIRIFF_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.decoders.depr.MJPEG_Decoder;
+import com.alexkersten.avpourri.media.decoders.depr.VideoFrame;
+import com.alexkersten.avpourri.media.extractors.msiavi.depr.AVIRIFF_MJPEG_Extractor;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.IOException;
@@ -72,7 +72,7 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Main.APPLICATION_TITLE + " MJPEG Frame Extraction Tool");
 
-        instructionLabel.setText("This is a test of my AVI -> MJPEG stream/frame extraction.");
+        instructionLabel.setText("THIS WONT WORK UNTIL WE MOVE EVERYTTHING OUT OF THE OLD DECODER/EXTRACTOR FORMAT");
 
         openButton.setText("1) Open MJPEG stream in an AVI");
         openButton.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +105,7 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
                     .addComponent(extractButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(instructionLabel)
-                        .addGap(0, 303, Short.MAX_VALUE))
+                        .addGap(0, 97, Short.MAX_VALUE))
                     .addComponent(openButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addComponent(listScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -153,29 +153,29 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         if (lastExtractor == null) {
             return;
         }
+        /*
+         MJPEG_Decoder dec = new MJPEG_Decoder(lastExtractor);
 
-        MJPEG_Decoder dec = new MJPEG_Decoder(lastExtractor);
+         DefaultListModel<VideoFrame> listModel = new DefaultListModel<>();
 
-        DefaultListModel<VideoFrame> listModel = new DefaultListModel<>();
+         try {
+         dec.startStream();
 
-        try {
-            dec.startStream();
-
-            VideoFrame frame;
-            while ((frame = dec.getNextFrame()) != null) {
-                //Get all the frames...
-                listModel.addElement(frame);
-            }
+         VideoFrame frame;
+         while ((frame = dec.getNextFrame()) != null) {
+         //Get all the frames...
+         listModel.addElement(frame);
+         }
 
 
-        } catch (IOException ioe) {
+         } catch (IOException ioe) {
 
-            JOptionPane.showMessageDialog(this, ioe.getLocalizedMessage(), "Exception @ " + dec.getStreamPosition(), 0);
-        }
+         JOptionPane.showMessageDialog(this, ioe.getLocalizedMessage(), "Exception @ " + dec.getStreamPosition(), 0);
+         }
 
-        frameList.setCellRenderer(new FrameThumbnailListRenderer());
-        frameList.setModel(listModel);
-        //dec.startStream();
+         frameList.setCellRenderer(new FrameThumbnailListRenderer());
+         frameList.setModel(listModel);
+         */      //dec.startStream();
 
     }//GEN-LAST:event_extractButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

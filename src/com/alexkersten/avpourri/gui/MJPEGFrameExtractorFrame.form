@@ -33,7 +33,7 @@
                   <Component id="extractButton" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="instructionLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="303" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="97" max="32767" attributes="0"/>
                   </Group>
                   <Component id="openButton" max="32767" attributes="0"/>
               </Group>
@@ -62,7 +62,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="instructionLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="This is a test of my AVI -&gt; MJPEG stream/frame extraction."/>
+        <Property name="text" type="java.lang.String" value="THIS WONT WORK UNTIL WE MOVE EVERYTTHING OUT OF THE OLD DECODER/EXTRACTOR FORMAT"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="openButton">

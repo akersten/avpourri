@@ -3,7 +3,7 @@
  File: MediaFrame.java (com.alexkersten.avpourri.media.decoders)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.decoders;
+package com.alexkersten.avpourri.media;
 
 /**
  * Could be audio or video - a subclass of this is returned by the StreamDecoder

@@ -3,9 +3,9 @@
  File: AVIRIFF_MJPEG_Extractor.java (com.alexkersten.avpourri.media.extractors)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.extractors.msiavi;
+package com.alexkersten.avpourri.media.extractors.msiavi.depr;
 
-import com.alexkersten.avpourri.media.extractors.ContainerExtractor;
+import com.alexkersten.avpourri.media.extractors.depr.ContainerExtractor;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;

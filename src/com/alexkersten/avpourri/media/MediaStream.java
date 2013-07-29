@@ -1,11 +1,11 @@
 /*
  Project: AVpourri
- File: StreamDecoder.java (com.alexkersten.avpourri.media.decoders)
+ File: MediaStream.java (com.alexkersten.avpourri.media.decoders)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.decoders;
+package com.alexkersten.avpourri.media;
 
-import com.alexkersten.avpourri.media.extractors.ContainerExtractor;
+import com.alexkersten.avpourri.media.extractors.depr.ContainerExtractor;
 import java.io.IOException;
 
 /**
@@ -40,7 +40,7 @@ import java.io.IOException;
  * devise a caching solution. The best option so far is to kind of open the file
  * as a stream, then read sequentially - do this as often as possible, rarely do
  * we want to call getNthFrame a bunch, because that'll require seeking to
- * random parts of the file - unless implementations of StreamDecoder keep cue
+ * random parts of the file - unless implementations of MediaStream keep cue
  * sheets of where in the file each frame appeared. Which could be good, but
  * it's still random-ish access. So we'll try to streamline it by providing a
  * few methods that start, resume, and stop a stream. (startStream,
@@ -48,18 +48,24 @@ import java.io.IOException;
  *
  * @author Alex Kersten
  */
-public abstract class StreamDecoder {
+public abstract class MediaStream {
 
-    private ContainerExtractor extractor;
+    //The name of this stream
+    private final String name;
 
-    public StreamDecoder(ContainerExtractor extractor) {
-        this.extractor = extractor;
+    private MediaContainer container;
+
+    public MediaStream(MediaContainer container, String name) {
+        this.container = container;
+        this.name = name;
     }
 
     public abstract MediaFrame getNthFrame(int n);
 
+    //
     //Stream-read methods. These will be better performant and less heavy on
     //disk IO since they're not as random access as getNthFrame.
+    //
     /**
      * Starts a stream-reading profile for this decoder. In the general case, it
      * should create a buffer for storing junk read in from the file, and begin
@@ -78,11 +84,20 @@ public abstract class StreamDecoder {
      */
     public abstract MediaFrame getNextFrame() throws IOException;
 
+    //
     //End of stream-read methods.
+    //
     /**
      * @return the container
      */
-    public ContainerExtractor getExtractor() {
-        return extractor;
+    public MediaContainer getContainer() {
+        return container;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 }

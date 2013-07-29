@@ -3,7 +3,7 @@
  File: ContainerExtracter.java (com.alexkersten.avpourri.media.extracters)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.extractors;
+package com.alexkersten.avpourri.media.extractors.depr;
 
 import java.io.IOException;
 import java.nio.file.Files;
