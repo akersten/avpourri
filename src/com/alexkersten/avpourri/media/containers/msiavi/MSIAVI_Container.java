@@ -3,17 +3,18 @@
  File: MSIAVI_Container.java (com.alexkersten.avpourri.media.extractors.msiavi)
  Author: Alex Kersten
  */
-package com.alexkersten.avpourri.media.msiavi;
+package com.alexkersten.avpourri.media.containers.msiavi;
 
 import com.alexkersten.avpourri.media.MediaContainer;
 import com.alexkersten.avpourri.media.MediaFile;
+import com.alexkersten.avpourri.media.VideoStream;
+import com.alexkersten.avpourri.media.vstreams.MJPEG_Stream;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Why is this file named MSIAVI container, why not just make a general AVI
@@ -52,7 +53,8 @@ import java.util.List;
  * I could go on, but I won't. But I could. Anyway, that's why we're
  * specifically targeting AVI files produced by MSI Afterburner, and any others
  * that happen to work are just extra points. I'd prefer to spend as little time
- * as possible working with the AVI format.
+ * as possible working with the AVI format. Ideally this will be general-ish but
+ * no promises.
  *
  * @author Alex Kersten
  */
@@ -67,7 +69,10 @@ public class MSIAVI_Container extends MediaContainer {
     private MSIAVI_MainHeader header;
 
     //The streams that this container contains - populated after we initialize.
-    private final ArrayList<MSIAVI_Stream> streams = new ArrayList<>();
+    //I'll set the generic to VideoStream because for all we know, something
+    //other than MJPEG could be in here - although we're really writing this
+    //as an MJPEG tool so...
+    private final ArrayList<VideoStream> streams = new ArrayList<>();
 
     public MSIAVI_Container(MediaFile mediaFile) {
         super(mediaFile);
@@ -76,7 +81,7 @@ public class MSIAVI_Container extends MediaContainer {
     private static void checkRead(int expected, int read) throws IOException {
         if (expected != read) {
             throw new IOException("Expected to read more bytes! E: "
-                                  + expected + " R: " + read);
+                    + expected + " R: " + read);
         }
     }
 
@@ -133,7 +138,7 @@ public class MSIAVI_Container extends MediaContainer {
         //int in order to get their unsigned representation.
         byte[] hdrlBuffer = new byte[firstListLength];
         checkRead(dis.read(hdrlBuffer, 0, hdrlBuffer.length),
-                  hdrlBuffer.length);
+                hdrlBuffer.length);
 
         //Within this byte array now is both the AVI global header and multiple
         //lists for each stream containing stream info.
@@ -270,7 +275,7 @@ public class MSIAVI_Container extends MediaContainer {
 
             for (int i = 0; i < dwordbuff.length; i++) {
                 thisStreamFormatLength +=
-                (hdrlBuffer[into + i] & 0xFF) << (8 * i);
+                        (hdrlBuffer[into + i] & 0xFF) << (8 * i);
             }
 
             //Skip it and the length dword.
@@ -303,7 +308,7 @@ public class MSIAVI_Container extends MediaContainer {
                 int thisUselessIndexLength = 0;
                 for (int i = 0; i < dwordbuff.length; i++) {
                     thisUselessIndexLength +=
-                    (hdrlBuffer[into + i] & 0xFF) << (8 * i);
+                            (hdrlBuffer[into + i] & 0xFF) << (8 * i);
                 }
 
 
@@ -312,7 +317,7 @@ public class MSIAVI_Container extends MediaContainer {
 
             System.out.println("into: " + into);
             System.out.println("Added a stream, continuing? " + firstListLength);
-            getStreams().add(new MSIAVI_Stream(this, thisStreamIsVideo ? "video" : "audio"));
+            getStreams().add(new MJPEG_Stream(this, thisStreamIsVideo ? "video" : "audio"));
         } //End of Stream Header/Stream Format discovery in the global header.
 
         return true;
@@ -330,7 +335,7 @@ public class MSIAVI_Container extends MediaContainer {
     }
 
     @Override
-    public ArrayList<MSIAVI_Stream> getStreams() {
+    public ArrayList<VideoStream> getStreams() {
         return streams;
     }
 
@@ -378,22 +383,6 @@ public class MSIAVI_Container extends MediaContainer {
     }
 }
 
-/**
- * This global header should reflect the structure defined here:
- * http://msdn.microsoft.com/en-us/library/ms779632.aspx
- *
- * We can use some of the values of this as hints to aid our decoding, like the
- * MicroSecPerFrame stuff can be translated to a framerate.
- *
- * @author Alex Kersten
- */
-class MSIAVI_MainHeader {
-
-    int dwMicroSecPerFrame = 0, dwMaxBytesPerSec = 0, dwPaddingGranularity = 0,
-            dwFlags = 0, dwTotalFrames = 0, dwInitialFrames = 0, dwStreams = 0,
-            dwSuggestedBufferSize = 0, dwWidth = 0, dwHeight = 0;
-
-}
 
 class MSIAVI_Constants {
 

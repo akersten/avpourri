@@ -12,8 +12,6 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
-import com.alexkersten.avpourri.media.extractors.msiavi.depr.AVIRIFF_MJPEG_Extractor;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
@@ -293,18 +291,6 @@ public class StreamInspectorFrame extends javax.swing.JFrame {
             selectedFileLabel.setText(jf.getSelectedFile().getAbsolutePath());
             
             
-//            lastExtractor = new AVIRIFF_MJPEG_Extractor(jf.getSelectedFile().toPath());
-//            try {
-//                if (lastExtractor.setExtractionParametersAndValidate()) {
-//                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath()
-//                                      + " offset " + lastExtractor.getStreamStartPosition());
-//                    extractButton.setEnabled(true);
-//                } else {
-//                    fileLabel.setText("Not an MJPEG in an AVI. Select another file.");
-//                }
-//            } catch (IOException ioe) {
-//                fileLabel.setText("IO Exception");
-//            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

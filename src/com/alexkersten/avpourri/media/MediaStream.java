@@ -5,7 +5,6 @@
  */
 package com.alexkersten.avpourri.media;
 
-import com.alexkersten.avpourri.media.extractors.depr.ContainerExtractor;
 import java.io.IOException;
 
 /**
@@ -64,12 +63,12 @@ public abstract class MediaStream {
 
     //
     //Stream-read methods. These will be better performant and less heavy on
-    //disk IO since they're not as random access as getNthFrame.
+    //cache/disk IO since they're not as random access as getNthFrame.
     //
     /**
-     * Starts a stream-reading profile for this decoder. In the general case, it
-     * should create a buffer for storing junk read in from the file, and begin
-     * sorting out as many frames as it can into a cache/internal buffer.
+     * Resets the stream to read sequentially from the beginning of the buffer.
+     * Basically, if we're reading frames one at a time, this will reset us back
+     * to the starting point in the stream data.
      *
      * @return boolean Status of the stream initialization.
      */

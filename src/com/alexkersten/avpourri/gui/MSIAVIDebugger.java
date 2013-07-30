@@ -14,7 +14,7 @@ package com.alexkersten.avpourri.gui;
 import com.alexkersten.avpourri.AVPRuntime;
 import com.alexkersten.avpourri.media.MediaFile;
 import com.alexkersten.avpourri.media.MediaStream;
-import com.alexkersten.avpourri.media.msiavi.MSIAVI_Container;
+import com.alexkersten.avpourri.media.containers.msiavi.MSIAVI_Container;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;

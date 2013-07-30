@@ -12,19 +12,14 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.Main;
-import com.alexkersten.avpourri.media.decoders.depr.MJPEG_Decoder;
-import com.alexkersten.avpourri.media.decoders.depr.VideoFrame;
-import com.alexkersten.avpourri.media.extractors.msiavi.depr.AVIRIFF_MJPEG_Extractor;
+import com.alexkersten.avpourri.media.VideoFrame;
 import java.awt.Color;
 import java.awt.Component;
-import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 
 /**
@@ -33,8 +28,6 @@ import javax.swing.ListCellRenderer;
  */
 @SuppressWarnings("serial")
 public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
-
-    private AVIRIFF_MJPEG_Extractor lastExtractor;
 
     /**
      * Creates new form MJPEGFrameExtractorFrame
@@ -132,27 +125,24 @@ public class MJPEGFrameExtractorFrame extends javax.swing.JFrame {
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            lastExtractor = new AVIRIFF_MJPEG_Extractor(jf.getSelectedFile().toPath());
-            try {
-                if (lastExtractor.setExtractionParametersAndValidate()) {
-                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath()
-                                      + " offset " + lastExtractor.getStreamStartPosition());
-                    extractButton.setEnabled(true);
-                } else {
-                    fileLabel.setText("Not an MJPEG in an AVI. Select another file.");
-                }
-            } catch (IOException ioe) {
-                fileLabel.setText("IO Exception");
-            }
+//            lastExtractor = new AVIRIFF_MJPEG_Extractor(jf.getSelectedFile().toPath());
+//            try {
+//                if (lastExtractor.setExtractionParametersAndValidate()) {
+//                    fileLabel.setText(jf.getSelectedFile().getAbsolutePath()
+//                                      + " offset " + lastExtractor.getStreamStartPosition());
+//                    extractButton.setEnabled(true);
+//                } else {
+//                    fileLabel.setText("Not an MJPEG in an AVI. Select another file.");
+//                }
+//            } catch (IOException ioe) {
+//                fileLabel.setText("IO Exception");
+//            }
         }
     }//GEN-LAST:event_openButtonActionPerformed
 
     private void extractButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractButtonActionPerformed
         //We'll extract the frames via a stream-read from our stream decoder;
         //basically faster than calling getNthFrame(1), getNthFrame(2)...
-        if (lastExtractor == null) {
-            return;
-        }
         /*
          MJPEG_Decoder dec = new MJPEG_Decoder(lastExtractor);
 
