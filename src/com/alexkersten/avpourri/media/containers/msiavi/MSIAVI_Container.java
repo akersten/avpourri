@@ -6,6 +6,7 @@
 package com.alexkersten.avpourri.media.containers.msiavi;
 
 import com.alexkersten.avpourri.media.MediaContainer;
+import com.alexkersten.avpourri.media.MediaContainerType;
 import com.alexkersten.avpourri.media.MediaFile;
 import com.alexkersten.avpourri.media.VideoStream;
 import com.alexkersten.avpourri.media.vstreams.MJPEG_Stream;
@@ -75,7 +76,7 @@ public class MSIAVI_Container extends MediaContainer {
     private final ArrayList<VideoStream> streams = new ArrayList<>();
 
     public MSIAVI_Container(MediaFile mediaFile) {
-        super(mediaFile);
+        super(mediaFile, MediaContainerType.MSIAVI);
     }
 
     private static void checkRead(int expected, int read) throws IOException {
@@ -104,6 +105,9 @@ public class MSIAVI_Container extends MediaContainer {
         //the AVI file claims later and use that. For now, just read in the
         //global header and check the RIFF header.
 
+        //TODO: Checking this RIFF header is redundant - it's already performed
+        //by the MediaContainerType enum's presence in MediaContainer's
+        //initialize method.
         DataInputStream dis = new DataInputStream(
                 new FileInputStream(getMediaFile().getFileOnDisk().toFile()));
 
@@ -382,7 +386,6 @@ public class MSIAVI_Container extends MediaContainer {
         return header.dwHeight;
     }
 }
-
 
 class MSIAVI_Constants {
 

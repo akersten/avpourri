@@ -22,16 +22,25 @@ public abstract class MediaContainer {
 
     //The MediaFile object that corresponds to this container.
     private final MediaFile mediaFile;
+    
+    //The expected type of this MediaContainer. This gets verified automatically
+    //by this class by looking at the first few bytes of whatever container
+    //type this supposedly is - a simple verification. See MediaContainerType
+    //for the actual bytes that get checked.
+    private final MediaContainerType type;
 
-    public MediaContainer(MediaFile mediaFile) {
+    public MediaContainer(MediaFile mediaFile, MediaContainerType type) {
         this.mediaFile = mediaFile;
+        this.type = type;
     }
 
     /**
      * Opens and validates the container; this causes the file to become open
      * and populates fields of the Container object with information about the
      * contained streams. Also, makes sure this file is actually a valid
-     * container of this type.
+     * container of this type. The superclass implementation in MediaContainer
+     * does rudimentary header verification against known file headers of the
+     * claimed type, and leaves more intensive verification to subclasses.
      *
      * This needs to be called first before any of the other operations will
      * work - information about the streams usually depends on a method like
@@ -54,6 +63,8 @@ public abstract class MediaContainer {
         mediaFile.setFileChannel(FileChannel.open(mediaFile.getFileOnDisk()));
         mediaFile.setFileBuffer(
                 ByteBuffer.allocate(MediaFile.DEFAULT_BUFFER_SIZE));
+        
+        //TODO: Check header against bytes in MediaContainerType
 
 
         return true;
