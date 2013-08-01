@@ -21,6 +21,9 @@ public class CustomTheme implements Serializable {
 
     //The default colors.
     private Color labelColor = new Color(210, 210, 210), inputColor = new Color(229, 229, 229), farBackgroundColor, nearBackgroundColor;
+    
+    //How tall the video tracks should be
+    private int videoTrackHeight = 96;
 
     public CustomTheme() {
     }

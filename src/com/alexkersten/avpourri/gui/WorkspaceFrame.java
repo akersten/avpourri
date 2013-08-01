@@ -46,7 +46,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void initCustomComponents() {
         //Add the timeline - border layout center so it fills the container
         timelineContainerPanel.setLayout(new BorderLayout());
-        JxTimeline jxt = new JxTimeline();
+        JxTimeline jxt = new JxTimeline(timelineScrollPane);
         timelineContainerPanel.add(jxt, BorderLayout.CENTER);
 
         Repainter r = new Repainter();
@@ -1197,7 +1197,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton4.setForeground(new java.awt.Color(204, 204, 204));
         jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/multigroup16.png"))); // NOI18N
         jToggleButton4.setSelected(true);
-        jToggleButton4.setText("Auto-group");
         jToggleButton4.setFocusable(false);
         jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jToggleButton4);

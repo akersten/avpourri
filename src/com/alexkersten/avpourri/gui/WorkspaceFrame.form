@@ -2150,7 +2150,6 @@
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/multigroup16.png"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
-            <Property name="text" type="java.lang.String" value="Auto-group"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
