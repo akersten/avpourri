@@ -51,6 +51,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         Repainter r = new Repainter();
         r.addTarget(jxt);
+        r.setInterval(100);
 
     }
 
@@ -71,6 +72,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         cropScaleButtonGroup = new javax.swing.ButtonGroup();
+        cursorABButtonGroup = new javax.swing.ButtonGroup();
         topBottomSplitPane = new javax.swing.JSplitPane();
         clipsPreviewSplitPane = new javax.swing.JSplitPane();
         clipsTabbedPane = new javax.swing.JTabbedPane();
@@ -156,6 +158,9 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         TimelinePanel = new javax.swing.JPanel();
         jSplitPane4 = new javax.swing.JSplitPane();
         jToolBar2 = new javax.swing.JToolBar();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
+        jSeparator16 = new javax.swing.JToolBar.Separator();
         jToggleButton2 = new javax.swing.JToggleButton();
         jToggleButton3 = new javax.swing.JToggleButton();
         jSeparator5 = new javax.swing.JToolBar.Separator();
@@ -166,6 +171,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
+        jToggleButton7 = new javax.swing.JToggleButton();
+        jSeparator17 = new javax.swing.JToolBar.Separator();
         jButton21 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
         jSeparator12 = new javax.swing.JToolBar.Separator();
@@ -382,11 +389,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         importedClipsPanel.setLayout(importedClipsPanelLayout);
         importedClipsPanelLayout.setHorizontalGroup(
             importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(mediaMetadataSplitPane)
         );
         importedClipsPanelLayout.setVerticalGroup(
             importedClipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(mediaMetadataSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         clipsTabbedPane.addTab("Imported Clips", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/hier16.png")), importedClipsPanel); // NOI18N
@@ -426,11 +433,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+            .addComponent(jScrollPane5)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
 
         clipsTabbedPane.addTab("Generate Clip", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/new16.png")), jPanel2); // NOI18N
@@ -490,12 +497,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         PreviewPanel.setLayout(PreviewPanelLayout);
         PreviewPanelLayout.setHorizontalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
+            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
         );
         PreviewPanelLayout.setVerticalGroup(
             PreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PreviewPanelLayout.createSequentialGroup()
-                .addContainerGap(388, Short.MAX_VALUE)
+                .addContainerGap(390, Short.MAX_VALUE)
                 .addComponent(jToolBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -531,12 +538,12 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         sourcePreviewPanel.setLayout(sourcePreviewPanelLayout);
         sourcePreviewPanelLayout.setHorizontalGroup(
             sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jToolBar4, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         sourcePreviewPanelLayout.setVerticalGroup(
             sourcePreviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sourcePreviewPanelLayout.createSequentialGroup()
-                .addGap(0, 388, Short.MAX_VALUE)
+                .addGap(0, 390, Short.MAX_VALUE)
                 .addComponent(jToolBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -713,11 +720,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Properties", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/pencil16.png")), jPanel5); // NOI18N
@@ -829,11 +836,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         ClipEffectsContainerPanel.setLayout(ClipEffectsContainerPanelLayout);
         ClipEffectsContainerPanelLayout.setHorizontalGroup(
             ClipEffectsContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         ClipEffectsContainerPanelLayout.setVerticalGroup(
             ClipEffectsContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+            .addComponent(ClipEffectsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Effects", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/star16.png")), ClipEffectsContainerPanel); // NOI18N
@@ -842,11 +849,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 462, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 415, Short.MAX_VALUE)
         );
 
         leftPlaybackTabbedPane.addTab("Clip Keyframing", new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/frame16.png")), jPanel9); // NOI18N
@@ -868,12 +875,27 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToolBar2.setFloatable(false);
         jToolBar2.setRollover(true);
 
+        cursorABButtonGroup.add(jToggleButton5);
+        jToggleButton5.setSelected(true);
+        jToggleButton5.setText("A");
+        jToggleButton5.setFocusable(false);
+        jToggleButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jToggleButton5);
+
+        cursorABButtonGroup.add(jToggleButton6);
+        jToggleButton6.setText("B");
+        jToggleButton6.setFocusable(false);
+        jToggleButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jToggleButton6);
+        jToolBar2.add(jSeparator16);
+
         cropScaleButtonGroup.add(jToggleButton2);
         jToggleButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/crop16.png"))); // NOI18N
         jToggleButton2.setSelected(true);
         jToggleButton2.setText("Crop");
         jToggleButton2.setToolTipText("When resizing a clip, cut parts out instead of changing its speed. [Q]");
-        jToggleButton2.setEnabled(false);
         jToggleButton2.setFocusable(false);
         jToggleButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton2);
@@ -882,7 +904,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/time16.png"))); // NOI18N
         jToggleButton3.setText("Scale");
         jToggleButton3.setToolTipText("When resizing a clip, adjust its playback speed instead of cropping. [W]");
-        jToggleButton3.setEnabled(false);
         jToggleButton3.setFocusable(false);
         jToggleButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton3);
@@ -892,7 +913,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton1.setSelected(true);
         jToggleButton1.setText("Snap");
         jToggleButton1.setToolTipText("Snap clips to each other when they're close. Otherwise, snap to 1/framerate increments. [R]");
-        jToggleButton1.setEnabled(false);
         jToggleButton1.setFocusable(false);
         jToggleButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jToggleButton1);
@@ -901,7 +921,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/group16.png"))); // NOI18N
         jButton1.setText("Group");
         jButton1.setToolTipText("Groups clips into a group (another type of clip). Clips must be the same length. [G]");
-        jButton1.setEnabled(false);
         jButton1.setFocusable(false);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton1);
@@ -909,7 +928,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/ungroup16.png"))); // NOI18N
         jButton3.setText("Ungroup");
         jButton3.setToolTipText("Dissolves ALL currently selected groups. [U]");
-        jButton3.setEnabled(false);
         jButton3.setFocusable(false);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton3);
@@ -918,22 +936,26 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/splice16.png"))); // NOI18N
         jButton2.setText("Split");
         jButton2.setToolTipText("Splits a clip into two pieces. [S]");
-        jButton2.setEnabled(false);
         jButton2.setFocusable(false);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton2);
         jToolBar2.add(jSeparator4);
 
+        jToggleButton7.setText("Isolate");
+        jToggleButton7.setFocusable(false);
+        jToggleButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jToggleButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(jToggleButton7);
+        jToolBar2.add(jSeparator17);
+
         jButton21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/filmadd16.png"))); // NOI18N
         jButton21.setText("Add Video Track");
-        jButton21.setEnabled(false);
         jButton21.setFocusable(false);
         jButton21.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton21);
 
         jButton23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/soundadd16.png"))); // NOI18N
         jButton23.setText("Add Audio Track");
-        jButton23.setEnabled(false);
         jButton23.setFocusable(false);
         jButton23.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton23);
@@ -941,7 +963,6 @@ public class WorkspaceFrame extends javax.swing.JFrame {
 
         jButton24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/trash16.png"))); // NOI18N
         jButton24.setText("Delete Track");
-        jButton24.setEnabled(false);
         jButton24.setFocusable(false);
         jButton24.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(jButton24);
@@ -983,11 +1004,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         timelineScrollPaneContainerPanel.setLayout(timelineScrollPaneContainerPanelLayout);
         timelineScrollPaneContainerPanelLayout.setHorizontalGroup(
             timelineScrollPaneContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(timelineScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1453, Short.MAX_VALUE)
+            .addComponent(timelineScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1451, Short.MAX_VALUE)
         );
         timelineScrollPaneContainerPanelLayout.setVerticalGroup(
             timelineScrollPaneContainerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(timelineScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+            .addComponent(timelineScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
         );
 
         jSplitPane4.setRightComponent(timelineScrollPaneContainerPanel);
@@ -1000,7 +1021,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         );
         TimelinePanelLayout.setVerticalGroup(
             TimelinePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+            .addComponent(jSplitPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Timeline", TimelinePanel);
@@ -1011,11 +1032,11 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 122, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGap(0, 381, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab1", jPanel1);
@@ -1162,7 +1183,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 786, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 905, Short.MAX_VALUE)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
@@ -1181,7 +1202,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
                     .addComponent(jLabel24)
                     .addComponent(jLabel25)
                     .addComponent(jLabel26))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         jTabbedPane3.addTab("Audio (Master)", jPanel3);
@@ -1197,6 +1218,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToggleButton4.setForeground(new java.awt.Color(204, 204, 204));
         jToggleButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/multigroup16.png"))); // NOI18N
         jToggleButton4.setSelected(true);
+        jToggleButton4.setText("Auto-group");
         jToggleButton4.setFocusable(false);
         jToggleButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jToggleButton4);
@@ -1493,6 +1515,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JSplitPane clipsPreviewSplitPane;
     private javax.swing.JTabbedPane clipsTabbedPane;
     private javax.swing.ButtonGroup cropScaleButtonGroup;
+    private javax.swing.ButtonGroup cursorABButtonGroup;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuItem globalSettingsMenuItem;
@@ -1603,6 +1626,8 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator15;
+    private javax.swing.JToolBar.Separator jSeparator16;
+    private javax.swing.JToolBar.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
@@ -1627,6 +1652,9 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToggleButton jToggleButton7;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JToolBar jToolBar3;

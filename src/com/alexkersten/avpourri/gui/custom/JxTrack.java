@@ -13,4 +13,15 @@ import javax.swing.JList;
  */
 public class JxTrack<JxClip> extends JList<JxClip> {
     
+    
+
+    String getTitle() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }
+
+/**
+ * These need a custom renderer to draw their contained objects, I think.
+ * 
+ */

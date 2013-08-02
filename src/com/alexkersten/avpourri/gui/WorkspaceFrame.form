@@ -4,6 +4,8 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="cropScaleButtonGroup">
     </Component>
+    <Component class="javax.swing.ButtonGroup" name="cursorABButtonGroup">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="mainMenuBar">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="avpourriMenu">
@@ -389,12 +391,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="mediaMetadataSplitPane" alignment="0" pref="362" max="32767" attributes="0"/>
+                          <Component id="mediaMetadataSplitPane" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="mediaMetadataSplitPane" alignment="0" pref="413" max="32767" attributes="0"/>
+                          <Component id="mediaMetadataSplitPane" alignment="0" pref="417" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -648,12 +650,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="362" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane5" alignment="0" pref="413" max="32767" attributes="0"/>
+                          <Component id="jScrollPane5" alignment="0" pref="417" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -760,13 +762,13 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jToolBar3" pref="737" max="32767" attributes="0"/>
+                              <Component id="jToolBar3" pref="739" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace pref="388" max="32767" attributes="0"/>
+                                  <EmptySpace pref="390" max="32767" attributes="0"/>
                                   <Component id="jToolBar3" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -881,13 +883,13 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jToolBar4" alignment="0" pref="460" max="32767" attributes="0"/>
+                              <Component id="jToolBar4" alignment="0" pref="462" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="388" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="390" max="32767" attributes="0"/>
                                   <Component id="jToolBar4" min="-2" pref="25" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -947,12 +949,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" alignment="0" pref="460" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" alignment="0" pref="413" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1277,12 +1279,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ClipEffectsScrollPane" alignment="0" pref="460" max="32767" attributes="0"/>
+                              <Component id="ClipEffectsScrollPane" alignment="0" pref="462" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ClipEffectsScrollPane" alignment="0" pref="413" max="32767" attributes="0"/>
+                              <Component id="ClipEffectsScrollPane" alignment="0" pref="415" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1489,12 +1491,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="460" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="462" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="413" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="415" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1556,7 +1558,7 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jSplitPane4" alignment="0" pref="395" max="32767" attributes="0"/>
+                              <Component id="jSplitPane4" alignment="0" pref="381" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1582,6 +1584,31 @@
 
                               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                               <SubComponents>
+                                <Component class="javax.swing.JToggleButton" name="jToggleButton5">
+                                  <Properties>
+                                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                      <ComponentRef name="cursorABButtonGroup"/>
+                                    </Property>
+                                    <Property name="selected" type="boolean" value="true"/>
+                                    <Property name="text" type="java.lang.String" value="A"/>
+                                    <Property name="focusable" type="boolean" value="false"/>
+                                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                                    <Property name="verticalTextPosition" type="int" value="3"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JToggleButton" name="jToggleButton6">
+                                  <Properties>
+                                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                      <ComponentRef name="cursorABButtonGroup"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="B"/>
+                                    <Property name="focusable" type="boolean" value="false"/>
+                                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                                    <Property name="verticalTextPosition" type="int" value="3"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JToolBar$Separator" name="jSeparator16">
+                                </Component>
                                 <Component class="javax.swing.JToggleButton" name="jToggleButton2">
                                   <Properties>
                                     <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -1593,7 +1620,6 @@
                                     <Property name="selected" type="boolean" value="true"/>
                                     <Property name="text" type="java.lang.String" value="Crop"/>
                                     <Property name="toolTipText" type="java.lang.String" value="When resizing a clip, cut parts out instead of changing its speed. [Q]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1608,7 +1634,6 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Scale"/>
                                     <Property name="toolTipText" type="java.lang.String" value="When resizing a clip, adjust its playback speed instead of cropping. [W]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1623,7 +1648,6 @@
                                     <Property name="selected" type="boolean" value="true"/>
                                     <Property name="text" type="java.lang.String" value="Snap"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Snap clips to each other when they&apos;re close. Otherwise, snap to 1/framerate increments. [R]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1637,7 +1661,6 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Group"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Groups clips into a group (another type of clip). Clips must be the same length. [G]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1649,7 +1672,6 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Ungroup"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Dissolves ALL currently selected groups. [U]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1663,12 +1685,21 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Split"/>
                                     <Property name="toolTipText" type="java.lang.String" value="Splits a clip into two pieces. [S]"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JToolBar$Separator" name="jSeparator4">
+                                </Component>
+                                <Component class="javax.swing.JToggleButton" name="jToggleButton7">
+                                  <Properties>
+                                    <Property name="text" type="java.lang.String" value="Isolate"/>
+                                    <Property name="focusable" type="boolean" value="false"/>
+                                    <Property name="horizontalTextPosition" type="int" value="0"/>
+                                    <Property name="verticalTextPosition" type="int" value="3"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.JToolBar$Separator" name="jSeparator17">
                                 </Component>
                                 <Component class="javax.swing.JButton" name="jButton21">
                                   <Properties>
@@ -1676,7 +1707,6 @@
                                       <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/filmadd16.png"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Add Video Track"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1687,7 +1717,6 @@
                                       <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/soundadd16.png"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Add Audio Track"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1700,7 +1729,6 @@
                                       <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/trash16.png"/>
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Delete Track"/>
-                                    <Property name="enabled" type="boolean" value="false"/>
                                     <Property name="focusable" type="boolean" value="false"/>
                                     <Property name="verticalTextPosition" type="int" value="3"/>
                                   </Properties>
@@ -1751,12 +1779,12 @@
                               <Layout>
                                 <DimensionLayout dim="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="timelineScrollPane" alignment="0" pref="1453" max="32767" attributes="0"/>
+                                      <Component id="timelineScrollPane" alignment="0" pref="1451" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                                 <DimensionLayout dim="1">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="timelineScrollPane" alignment="0" pref="357" max="32767" attributes="0"/>
+                                      <Component id="timelineScrollPane" alignment="0" pref="343" max="32767" attributes="0"/>
                                   </Group>
                                 </DimensionLayout>
                               </Layout>
@@ -1811,12 +1839,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="120" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="122" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="395" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="381" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1870,7 +1898,7 @@
                               <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel26" min="-2" pref="270" max="-2" attributes="0"/>
-                              <EmptySpace pref="786" max="32767" attributes="0"/>
+                              <EmptySpace pref="905" max="32767" attributes="0"/>
                               <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
@@ -1892,7 +1920,7 @@
                                   <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2150,6 +2178,7 @@
               <Image iconType="3" name="/com/alexkersten/avpourri/gui/icons/multigroup16.png"/>
             </Property>
             <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value="Auto-group"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
