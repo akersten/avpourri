@@ -90,17 +90,17 @@ public class WAVDebugger extends javax.swing.JFrame {
 
         if (result == JFileChooser.APPROVE_OPTION) {
 
-            if (as == null) {
-                MediaFile f = new MediaFile(jf.getSelectedFile().toPath());
-                c = new WAV_Container(f);
-            }
+
+            MediaFile f = new MediaFile(jf.getSelectedFile().toPath());
+            c = new WAV_Container(f);
+
             try {
-                if (as == null) {
-                    c.initialize();
+
+                c.initialize();
 
 
-                    as = (AudioStream) c.getStreams().get(0);
-                }
+                as = (AudioStream) c.getStreams().get(0);
+
                 as.setStream(0);
                 as.playSync();
 
