@@ -22,7 +22,7 @@ public abstract class MediaContainer {
 
     //The MediaFile object that corresponds to this container.
     private final MediaFile mediaFile;
-    
+
     //The expected type of this MediaContainer. This gets verified automatically
     //by this class by looking at the first few bytes of whatever container
     //type this supposedly is - a simple verification. See MediaContainerType
@@ -63,7 +63,7 @@ public abstract class MediaContainer {
         mediaFile.setFileChannel(FileChannel.open(mediaFile.getFileOnDisk()));
         mediaFile.setFileBuffer(
                 ByteBuffer.allocate(MediaFile.DEFAULT_BUFFER_SIZE));
-        
+
         //TODO: Check header against bytes in MediaContainerType
 
 
