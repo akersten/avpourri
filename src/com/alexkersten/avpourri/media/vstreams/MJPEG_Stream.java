@@ -33,7 +33,7 @@ public class MJPEG_Stream extends VideoStream {
     }
 
     @Override
-    public boolean startStream() throws IOException {
+    public boolean setStream(int frame) throws IOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

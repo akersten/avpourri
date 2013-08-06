@@ -4,6 +4,8 @@
  */
 package com.alexkersten.avpourri.media;
 
+import java.io.IOException;
+
 /**
  * A stream with video-specific things like width and height parameters.
  *
@@ -13,8 +15,16 @@ public abstract class VideoStream extends MediaStream {
 
     private int width, height;
 
-    @Override
-    public abstract VideoFrame getNthFrame(int n);
+    public abstract MediaFrame getNthFrame(int n);
+
+    /**
+     * Grabs the next frame stored in the internal stream buffer, and causes the
+     * stream to advance further in the file if necessary. Returns null if the
+     * stream hasn't been started or if we've reached the end of the file.
+     *
+     * @return The next frame in the buffer
+     */
+    public abstract MediaFrame getNextFrame() throws IOException;
 
     public VideoStream(MediaContainer container, String name) {
         super(container, name);

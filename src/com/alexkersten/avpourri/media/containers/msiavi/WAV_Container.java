@@ -5,9 +5,7 @@
  */
 package com.alexkersten.avpourri.media.containers.msiavi;
 
-import com.alexkersten.avpourri.media.AudioChannel;
-import com.alexkersten.avpourri.media.AudioDepth;
-import com.alexkersten.avpourri.media.AudioSampleRate;
+import com.alexkersten.avpourri.media.AudioPCMFormat;
 import com.alexkersten.avpourri.media.AudioStream;
 import com.alexkersten.avpourri.media.MediaContainer;
 import com.alexkersten.avpourri.media.MediaContainerType;
@@ -92,22 +90,16 @@ public class WAV_Container extends MediaContainer {
 
         //TODO: support more than stereo
         //division by 4 because lenght is in bytes and we want two streams of shorts (contained in ints)\
-        
-        //TODO: TEMPORARY - we're reading it in as bytes instead, because Java7 Line does byte reading only...
-        int streamData[][] = new int[2][streamLength / 2];
 
-        for (int i = 0; i < streamLength / 2; i += 2) {
-            //First two are for the left channel, others for the right
-            streamData[0][i] = dis.readByte();
-            streamData[0][i+1] = dis.readByte();
-            streamData[1][i] = dis.readByte();
-            streamData[1][i+1] = dis.readByte();
-        }
+        //TODO: TEMPORARY - we're reading it in as bytes instead, because Java7 Line does byte reading only...
+        byte streamData[] = new byte[streamLength];
+
+        dis.read(streamData, 0, streamLength);
 
         System.out.println("Read " + streamLength + " bytes");
 
-        PCM_Stream pcm = new PCM_Stream(this, "WAV PCM", AudioChannel.STEREO,
-                                        AudioDepth.U16, AudioSampleRate.U44100, streamData);
+        //TODO: support for different containers
+        PCM_Stream pcm = new PCM_Stream(this, "WAV PCM", AudioPCMFormat.S16LE_44100_Stereo, streamData);
 
         streams.add(pcm);
 

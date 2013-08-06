@@ -28,7 +28,9 @@ import java.io.IOException;
  * and any modifications made will just be played back and the final baked image
  * will be sent off to the encoder.
  *
- * Audio is a bit trickier and I haven't thought about it yet.
+ * Audio is a bit trickier and I haven't thought about it yet. I think for audio
+ * we won't have arbitrary getNthFrame stuff but just advance the stream to the
+ * closest frame and play from there...
  *
  * Anyway, these decoders are kind of in the middle of the chain of abstraction:
  * you'll need to give them a ContainerExtractor object from which it can
@@ -42,8 +44,7 @@ import java.io.IOException;
  * random parts of the file - unless implementations of MediaStream keep cue
  * sheets of where in the file each frame appeared. Which could be good, but
  * it's still random-ish access. So we'll try to streamline it by providing a
- * few methods that start, resume, and stop a stream. (startStream,
- * getNextFrame).
+ * few methods that start, resume, and stop a stream. (setStream, getNextFrame).
  *
  * @author Alex Kersten
  */
@@ -59,33 +60,14 @@ public abstract class MediaStream {
         this.name = name;
     }
 
-    public abstract MediaFrame getNthFrame(int n);
-
-    //
-    //Stream-read methods. These will be better performant and less heavy on
-    //cache/disk IO since they're not as random access as getNthFrame.
-    //
     /**
-     * Resets the stream to read sequentially from the beginning of the buffer.
-     * Basically, if we're reading frames one at a time, this will reset us back
-     * to the starting point in the stream data.
+     * Sets the stream up to play from a certain point when getNextFrame() or
+     * similar continuous method is invoked. Probably good to call setStream(0)
+     * before playing for the first time.
      *
-     * @return boolean Status of the stream initialization.
+     * @return boolean If setting the stream to this frame succeeded.
      */
-    public abstract boolean startStream() throws IOException;
-
-    /**
-     * Grabs the next frame stored in the internal stream buffer, and causes the
-     * stream to advance further in the file if necessary. Returns null if the
-     * stream hasn't been started or if we've reached the end of the file.
-     *
-     * For audio streams, a "frame" is a one-second block - objectifying the
-     * individual samples would be silly - this will have to be considered when
-     * merging fractional clips.
-     *
-     * @return The next frame in the buffer
-     */
-    public abstract MediaFrame getNextFrame() throws IOException;
+    public abstract boolean setStream(int frame) throws IOException;
 
     //
     //End of stream-read methods.

@@ -11,7 +11,6 @@
  */
 package com.alexkersten.avpourri.gui;
 
-import com.alexkersten.avpourri.media.AudioSecond;
 import com.alexkersten.avpourri.media.AudioStream;
 import com.alexkersten.avpourri.media.MediaFile;
 import com.alexkersten.avpourri.media.containers.msiavi.WAV_Container;
@@ -102,12 +101,8 @@ public class WAVDebugger extends javax.swing.JFrame {
 
                     as = (AudioStream) c.getStreams().get(0);
                 }
-                as.startStream();
-                AudioSecond sec = null;
-
-                while ((sec = as.getNextFrame()) != null) {
-                    sec.playSync();
-                }
+                as.setStream(0);
+                as.playSync();
 
 
             } catch (IOException ioe) {
