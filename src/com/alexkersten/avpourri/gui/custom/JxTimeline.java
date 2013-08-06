@@ -7,6 +7,7 @@ package com.alexkersten.avpourri.gui.custom;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,11 +15,13 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingUtilities;
 
 /**
  * A Timeline is responsible for displaying a list of Tracks.
@@ -31,7 +34,7 @@ import javax.swing.ListCellRenderer;
  * @author Alex Kersten
  */
 @SuppressWarnings("serial")
-public class JxTimeline<JxTrack> extends JList<JxTrack> {
+public class JxTimeline extends JList<JxTrack> {
 
     //The parent JScrollPane that contains this timeline
     private final JScrollPane scrollPane;
@@ -40,16 +43,21 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
     private int trackbarHeight = 24;
 
     //The color for the trackbar background
-    private Color trackbarBackgroundColor1 = new Color(35, 35, 35);
-    
+    private Color trackbarBackgroundColor1 = new Color(25, 25, 25);
+
     private Color trackbarBackgroundColor2 = new Color(15, 15, 15);
 
     //The color for the trackbar foreground (ticks, numbers, etc.)
     private Color trackbarForegroundColor1 = new Color(90, 90, 90);
-    
+
     private Color trackbarForegroundColor2 = new Color(110, 110, 110);
-    
+
     private Color trackbarForegroundColor3 = new Color(150, 140, 150);
+
+    //Colors for the track cursors.
+    private Color cursorAColor = new Color(200, 10, 10);
+
+    private Color cursorBColor = new Color(10, 10, 200);
 
     //Which frame the beginning of the timeline is looking at (leftmost frame)
     private int currentFrame = 0;
@@ -65,14 +73,14 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
     private int framesPerPixel = 1;
 
     //Frame position of cursor A
-    int cursorA = 25;
+    int cursorA = 0;
 
     //Frame position of cursor B
-    private int cursorB = 25;
-    
+    int cursorB = 0;
+
     public JxTimeline(JScrollPane scrollPane) {
         this.scrollPane = scrollPane;
-        
+
         if (scrollPane == null) {
             System.err.println("Can't have a JxTimeline without a parent scroll pane!");
             return;
@@ -90,32 +98,35 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
         MouseMotionListener[] listeners2 = this.getMouseMotionListeners();
         for (MouseListener l : listeners) {
             //Don't need those where we're going, full custom stack baby
-            this.removeMouseListener(l);
-            
+            //       this.removeMouseListener(l);
         }
         for (MouseMotionListener l : listeners2) {
             this.removeMouseMotionListener(l);
         }
-        
-        
-        
-        
-        
-        DefaultListModel m = new DefaultListModel();
+
+
+
+
+
+        DefaultListModel<JxTrack> m = new DefaultListModel<>();
 
 
         //TODO: DEBUG TEST, REMOVE
-        for (int i = 0; i < 25; i++) {
-            m.add(i, new JxClip("test element " + i));
+        for (int i = 0; i < 2; i++) {
+
+
+            m.add(i, new JxTrack("track " + i));
         }
-        
+
         this.setModel(m);
-        
+
         this.setLayoutOrientation(JList.VERTICAL);
         this.setBackground(Color.DARK_GRAY);
-        
+
         this.addMouseListener(new TLML());
         this.addMouseMotionListener(new TLMML(this));
+        this.setCellRenderer(new TimelineCellRenderer());
+
     }
 
     /**
@@ -134,7 +145,7 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
         //cell renderer or listmodel renderer or whatever the API calls them
         g.translate(0, trackbarHeight);
         super.paintComponent(g);
-        
+
         g.translate(0, -trackbarHeight);
 
         //Since we're expecting to be in a scroll-pane, any relative drawing on
@@ -145,9 +156,9 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
 
         //On top of anything that's there, draw the trackbar.
         GradientPaint grad = new GradientPaint(0, yRel,
-                                               trackbarBackgroundColor1, 0,
+                                               trackbarBackgroundColor2, 0,
                                                trackbarHeight + yRel,
-                                               trackbarBackgroundColor2);
+                                               trackbarBackgroundColor1);
 
         //Draw a background for the trackbar.
         ((Graphics2D) g).setPaint(grad);
@@ -166,6 +177,9 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
         //for example) - more invovled than other parts where we're just changing
         //0 to xRef
 
+        //Maybe xRef shouldn't change -just use the horizontal scroll and only
+        //render what's in the current viewport?
+
         //Units of increment are pixels/second (how many pixels to move / sec)
         for (int x = 0; x < this.getWidth();
              x += (int) (1000.0 * 1000)
@@ -181,13 +195,17 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
                 //Small tick
                 g.drawLine(x, yRel + 3 * getTrackbarHeight() / 4, x, yRel + getTrackbarHeight());
             }
-            
+
         }
 
         //Draw cursor A
-        g.setColor(trackbarForegroundColor3);
+        g.setColor(cursorAColor);
         g.drawRect(xRel + cursorA, yRel, 1, getHeight());
-        
+
+        //Cursor B
+        g.setColor(cursorBColor);
+        g.drawRect(xRel + cursorB, yRel, 1, getHeight());
+
         int mouseX = 10;
         int mouseY = 10;
         Point mPos = this.getMousePosition();
@@ -195,10 +213,10 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
             mouseX = mPos.x;
             mouseY = mPos.y;
         }
-        
+
         g.setColor(Color.YELLOW);
         g.drawOval(mouseX - 1, mouseY - 1, 2, 2);
-        
+
     }
 
     /**
@@ -231,43 +249,82 @@ public class JxTimeline<JxTrack> extends JList<JxTrack> {
 }
 
 class TLMML implements MouseMotionListener {
-    
+
     JxTimeline tl;
-    
+
     TLMML(JxTimeline tl) {
         this.tl = tl;
     }
-    
+
     @Override
     public void mouseDragged(MouseEvent me) {
-        tl.cursorA = me.getX();
+        if (SwingUtilities.isLeftMouseButton(me)) {
+
+            tl.cursorA = me.getX();
+        } else if (SwingUtilities.isRightMouseButton(me)) {
+            tl.cursorB = me.getX();
+        }
+
     }
-    
+
     @Override
     public void mouseMoved(MouseEvent me) {
     }
 }
 
 class TLML implements MouseListener {
-    
+
     @Override
     public void mouseClicked(MouseEvent me) {
     }
-    
+
     @Override
     public void mousePressed(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseReleased(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseEntered(MouseEvent me) {
     }
-    
+
     @Override
     public void mouseExited(MouseEvent me) {
     }
 }
 
+/**
+ * This renderer will draw the tracks as horizontal rows by providing a JPanel
+ * for them to exist in. Each "track" is just a JPanel to contain the JxTracks
+ * which are JLists containing JxClips (which are really just JLabels).
+ *
+ * @author Alex Kersten
+ */
+@SuppressWarnings("serial")
+class TimelineCellRenderer extends JPanel implements ListCellRenderer {
+
+    @Override
+    public Component getListCellRendererComponent(JList list, Object value,
+                                                  int index, boolean isSelected,
+                                                  boolean cellHasFocus) {
+        @SuppressWarnings("unchecked")
+        JxTrack track = (JxTrack) value;
+        this.add(track);
+        this.setBorder(BorderFactory.createLoweredSoftBevelBorder());
+
+        /*        //Get every clip inside these and render those
+         for (JxClip clip : track.getClips()) {
+         //setPreferredSize(new Dimension(40, 40));
+         this.add(clip);
+
+         }*/
+
+        this.setPreferredSize(new Dimension(60, 90));
+
+        this.setBackground(Color.MAGENTA);
+
+        return this;
+    }
+}

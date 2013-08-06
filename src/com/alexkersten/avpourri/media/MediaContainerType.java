@@ -13,7 +13,8 @@ package com.alexkersten.avpourri.media;
  */
 public enum MediaContainerType {
 
-    MSIAVI("MSI Afterburner AVI", new byte[]{'R', 'I', 'F', 'F'});
+    MSIAVI("MSI Afterburner AVI", new byte[]{'R', 'I', 'F', 'F'}),
+    WAV("WAVE", new byte[]{'R', 'I', 'F', 'F'});
 
     //The display name of this MediaContainer - what a user should see when any
     //aspect of the UI queries this media type

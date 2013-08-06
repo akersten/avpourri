@@ -79,6 +79,10 @@ public abstract class MediaStream {
      * stream to advance further in the file if necessary. Returns null if the
      * stream hasn't been started or if we've reached the end of the file.
      *
+     * For audio streams, a "frame" is a one-second block - objectifying the
+     * individual samples would be silly - this will have to be considered when
+     * merging fractional clips.
+     *
      * @return The next frame in the buffer
      */
     public abstract MediaFrame getNextFrame() throws IOException;

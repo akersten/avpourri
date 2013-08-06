@@ -19,9 +19,9 @@ import javax.swing.JOptionPane;
  * @author Alex Kersten
  */
 public class WorkspaceFrame extends javax.swing.JFrame {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     private AVPRuntime runtime;
 
     /**
@@ -29,7 +29,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
      */
     public WorkspaceFrame(AVPRuntime runtime) {
         this.runtime = runtime;
-
+        
         initComponents();
         try {
             setIconImage(ImageIO.read(
@@ -37,22 +37,22 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
-
+        
         initCustomComponents();
-
+        
         this.setLocationRelativeTo(null);
     }
-
+    
     private void initCustomComponents() {
         //Add the timeline - border layout center so it fills the container
         timelineContainerPanel.setLayout(new BorderLayout());
         JxTimeline jxt = new JxTimeline(timelineScrollPane);
         timelineContainerPanel.add(jxt, BorderLayout.CENTER);
-
+        
         Repainter r = new Repainter();
         r.addTarget(jxt);
-        r.setInterval(100);
-
+        r.setInterval(66);
+        
     }
 
     /**
@@ -238,6 +238,9 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jSeparator18 = new javax.swing.JPopupMenu.Separator();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         mjpegFrameExtractorMenuItem = new javax.swing.JMenuItem();
         jSeparator10 = new javax.swing.JPopupMenu.Separator();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
@@ -876,6 +879,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToolBar2.setRollover(true);
 
         cursorABButtonGroup.add(jToggleButton5);
+        jToggleButton5.setForeground(new java.awt.Color(255, 0, 0));
         jToggleButton5.setSelected(true);
         jToggleButton5.setText("A");
         jToggleButton5.setFocusable(false);
@@ -884,6 +888,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
         jToolBar2.add(jToggleButton5);
 
         cursorABButtonGroup.add(jToggleButton6);
+        jToggleButton6.setForeground(new java.awt.Color(0, 0, 255));
         jToggleButton6.setText("B");
         jToggleButton6.setFocusable(false);
         jToggleButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1361,6 +1366,19 @@ public class WorkspaceFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem11);
+        jMenu2.add(jSeparator18);
+
+        jMenu3.setText("Audio");
+
+        jMenuItem12.setText("WAV");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem12);
+
+        jMenu2.add(jMenu3);
 
         toolsMenu.add(jMenu2);
 
@@ -1436,41 +1454,41 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
+    
     private void globalSettingsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_globalSettingsMenuItemActionPerformed
         new GlobalSettingsFrame(runtime).setVisible(true);
     }//GEN-LAST:event_globalSettingsMenuItemActionPerformed
-
+    
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         if (runtime.getProject() != null
-                && runtime.getProject().isProjectDirty()) {
-
+            && runtime.getProject().isProjectDirty()) {
+            
             int response = JOptionPane.showConfirmDialog(
                     this,
                     "TODO: There are unsaved changes - save them?",
                     "Confirm Exit", JOptionPane.YES_NO_CANCEL_OPTION);
-
+            
             if (response == JOptionPane.YES_OPTION) {
                 //TODO: Save
             }
-
+            
             if (response == JOptionPane.CANCEL_OPTION) {
                 return;
             }
         }
-
+        
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
-
+    
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         new AboutFrame().setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
-
+    
     private void addSourceFileMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSourceFileMenuItemActionPerformed
         JFileChooser js = new JFileChooser(System.getProperty("user.home"));
         js.setMultiSelectionEnabled(true);
         int result = js.showOpenDialog(this);
-
+        
         if (result == JFileChooser.APPROVE_OPTION) {
             for (File f : js.getSelectedFiles()) {
                 //Add each file to our media tree - if it's not media, that'll
@@ -1478,28 +1496,32 @@ public class WorkspaceFrame extends javax.swing.JFrame {
                 //our file selection dialogs.
             }
         }
-
+        
     }//GEN-LAST:event_addSourceFileMenuItemActionPerformed
-
+    
     private void mjpegFrameExtractorMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mjpegFrameExtractorMenuItemActionPerformed
         new MJPEGFrameExtractorFrame().setVisible(true);
     }//GEN-LAST:event_mjpegFrameExtractorMenuItemActionPerformed
-
+    
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         new ProjectSettingsFrame(runtime).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         new MediaBrowserFrame(runtime).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
+    
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         new StreamInspectorFrame(runtime).setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
-
+    
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         new MSIAVIDebugger(runtime).setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+    
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        new WAVDebugger().setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ClipEffectsContainerPanel;
     private javax.swing.JPanel ClipEffectsPanel;
@@ -1576,12 +1598,14 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem17;
@@ -1628,6 +1652,7 @@ public class WorkspaceFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JToolBar.Separator jSeparator16;
     private javax.swing.JToolBar.Separator jSeparator17;
+    private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
