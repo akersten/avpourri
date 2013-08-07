@@ -381,7 +381,8 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
                 
                 DefaultListModel lm = new DefaultListModel();
                 for (MediaStream m : container.getStreams()) {
-                    lm.add(0, m.getName());
+                    lm.add(lm.getSize(), m.getName());
+                    
                 }
                 
                 indexList.setModel(lm);
