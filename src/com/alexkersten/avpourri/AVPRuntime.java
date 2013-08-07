@@ -6,6 +6,7 @@
 package com.alexkersten.avpourri;
 
 import com.alexkersten.avpourri.gui.CustomTheme;
+import com.alexkersten.avpourri.gui.DebugConsoleFrame;
 import com.alexkersten.avpourri.gui.WorkspaceFrame;
 import com.alexkersten.avpourri.project.Project;
 
@@ -25,6 +26,8 @@ public class AVPRuntime {
     public AVPRuntime() {
         customTheme = new CustomTheme();
 
+        //  DebugConsoleFrame f = new DebugConsoleFrame();
+        // f.setVisible(true);
         WorkspaceFrame w = new WorkspaceFrame(this);
         w.setVisible(true);
     }

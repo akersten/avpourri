@@ -5,15 +5,21 @@
  */
 package com.alexkersten.avpourri.media.containers.msiavi;
 
+import com.alexkersten.avpourri.media.AudioPCMFormat;
 import com.alexkersten.avpourri.media.MediaContainer;
 import com.alexkersten.avpourri.media.MediaContainerType;
 import com.alexkersten.avpourri.media.MediaFile;
-import com.alexkersten.avpourri.media.VideoStream;
+import com.alexkersten.avpourri.media.MediaStream;
+import com.alexkersten.avpourri.media.astreams.PCM_Stream;
 import com.alexkersten.avpourri.media.vstreams.MJPEG_Stream;
+import com.alexkersten.avpourri.middleware.AVUtils;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -73,7 +79,7 @@ public class MSIAVI_Container extends MediaContainer {
     //I'll set the generic to VideoStream because for all we know, something
     //other than MJPEG could be in here - although we're really writing this
     //as an MJPEG tool so...
-    private final ArrayList<VideoStream> streams = new ArrayList<>();
+    private final ArrayList<MediaStream> streams = new ArrayList<>();
 
     public MSIAVI_Container(MediaFile mediaFile) {
         super(mediaFile, MediaContainerType.MSIAVI);
@@ -82,15 +88,35 @@ public class MSIAVI_Container extends MediaContainer {
     private static void checkRead(int expected, int read) throws IOException {
         if (expected != read) {
             throw new IOException("Expected to read more bytes! E: "
-                    + expected + " R: " + read);
+                                  + expected + " R: " + read);
         }
     }
+    //These are just scaffolding until we get a proper list reader set up...
+    private int[][] tmpAudioStreamSampleLocations;
+
+    private int tmpNastyInt = 0;
+
+    private int tmpStartOfMovieList = 0;
 
     /**
      * There are a couple different formats an AVI could be in - the one we're
      * mainly targeting is the type produced by MSI Afterburner, which have an
      * index in the "old" index form at the end of the file. < Have to figure
      * out if this index is absolute offsets or offsets from the movi tag >
+     *
+     *
+     * Ideally, the method would be as follows (for the future):
+     *
+     * - Read in the header data
+     *
+     * - Read lists as objects
+     *
+     * - Find relevant lists with video or audio header data
+     *
+     * - Use those lists to look into the file and build the stream
+     *
+     * THIS NEEDS TO BE ENTIRELY RE-WRITTEN ; THIS WAS WHIPPED UP QUICKLY TO
+     * DECODE SOME AVI's for a friend.
      *
      * @return
      */
@@ -99,6 +125,8 @@ public class MSIAVI_Container extends MediaContainer {
         if (!super.initialize()) {
             return false;
         }
+
+        tmpAudioStreamSampleLocations = new int[2][];
 
         //We could probably use the NIO stuff here, but we're just reading in
         //the global header for now - we'll check the PaddingGranularity that
@@ -142,7 +170,7 @@ public class MSIAVI_Container extends MediaContainer {
         //int in order to get their unsigned representation.
         byte[] hdrlBuffer = new byte[firstListLength];
         checkRead(dis.read(hdrlBuffer, 0, hdrlBuffer.length),
-                hdrlBuffer.length);
+                  hdrlBuffer.length);
 
         //Within this byte array now is both the AVI global header and multiple
         //lists for each stream containing stream info.
@@ -245,6 +273,27 @@ public class MSIAVI_Container extends MediaContainer {
 
             }
 
+            //TEMPORARY SCAFFOLDING FOR OUR BAD ARRAY
+            int thisNumSamples = 0;
+
+            for (int i = 0; i < dwordbuff.length; i++) {
+                thisNumSamples += (hdrlBuffer[into + i + 9 * 4] & 0xFF) << (8 * i);
+            }
+
+            System.out.println("num discrete samples: " + ((char) hdrlBuffer[into + 4]) + thisNumSamples);
+
+
+            //TEMPORRARY BAD  - look only for the audio sample lengths and use
+            //those to build our array which we'll find the samples with later..
+
+            //SCRATCH THAT - number of samples is not equal to number of sample locations!
+            //We'lll truncate this array later...
+            if (((char) hdrlBuffer[into + 4]) == 'a') {
+//                tmpAudioStreamSampleLocations[tmpNastyInt] = new int[thisNumSamples];
+                tmpAudioStreamSampleLocations[tmpNastyInt] = new int[thisNumSamples];
+                tmpNastyInt++;
+            }
+
             into += dwordbuff.length;
 
             //Now looking at the fccType
@@ -279,7 +328,7 @@ public class MSIAVI_Container extends MediaContainer {
 
             for (int i = 0; i < dwordbuff.length; i++) {
                 thisStreamFormatLength +=
-                        (hdrlBuffer[into + i] & 0xFF) << (8 * i);
+                (hdrlBuffer[into + i] & 0xFF) << (8 * i);
             }
 
             //Skip it and the length dword.
@@ -312,7 +361,7 @@ public class MSIAVI_Container extends MediaContainer {
                 int thisUselessIndexLength = 0;
                 for (int i = 0; i < dwordbuff.length; i++) {
                     thisUselessIndexLength +=
-                            (hdrlBuffer[into + i] & 0xFF) << (8 * i);
+                    (hdrlBuffer[into + i] & 0xFF) << (8 * i);
                 }
 
 
@@ -321,9 +370,174 @@ public class MSIAVI_Container extends MediaContainer {
 
             System.out.println("into: " + into);
             System.out.println("Added a stream, continuing? " + firstListLength);
-            getStreams().add(new MJPEG_Stream(this, thisStreamIsVideo ? "video" : "audio"));
+            if (thisStreamIsVideo) {
+                getStreams().add(new MJPEG_Stream(this, "video"));
+            } else {
+                //It's an audio stream, find where it's split across the entire
+                //file...
+
+                System.out.println("Found an audio stream, will demux later");
+
+                //Demuxing note: There's a hell of a lot of wb01, wb02 interlaced
+                //within the file - need to find out how long each sample is...
+                //Spoilers; it's 0x16F8 long each = 5880 bytes = 2940 bytes per
+                //channel = each sample is 1/15 a second
+
+            }
+
         } //End of Stream Header/Stream Format discovery in the global header.
 
+
+
+        //Skip to end index of audio streams and demux.
+        dis.close();
+
+        int skipped = 0;
+        dis = new DataInputStream(
+                new FileInputStream(getMediaFile().getFileOnDisk().toFile()));
+
+        //RIFF, length of whole file, AVI LIST, skip all that
+        dis.skip(16);
+
+        skipped += 16;
+        //Read how long the 'hdrl' list is, skip it
+        int length = AVUtils.readLittleEndianInt(dis);
+        dis.skip(length);
+
+        //Skip JUNK headers and LISTs
+        int test = dis.readInt();
+
+        skipped += length + 8;
+
+        //BUG: if no idx1 found, will error out. whole thing needs to be replaced
+        //but this will work for an MVP
+        while (test == 0x4A554E4B || test == 0x4C495354) {
+            int len = AVUtils.readLittleEndianInt(dis);
+            dis.skip(len);
+            test = dis.readInt();
+
+            skipped += len + 8;
+
+            if (test == 0x4C495354) {
+                //Just say the last LIST we find has a movi in it.. very bad
+                //temporary magic numbers, but we need an MVP extractor
+                tmpStartOfMovieList = skipped + 4;
+            }
+
+            //If an index, we're ready for the next step
+            if (test == 0x69647831) {
+                break;
+            }
+        }
+
+
+
+
+        System.out.println("STart of movie list: " + tmpStartOfMovieList);
+
+
+        //We're looking at the index, find any wubs.
+        int wublength = AVUtils.readLittleEndianInt(dis);
+        int sampleI = 0;
+        int sampleJ = 0;
+
+        for (int i = 0; i < wublength / 4; i += 1) {
+            dis.read(dwordbuff, 0, dwordbuff.length);
+            if (dwordbuff[2] != 'w' || dwordbuff[3] != 'b') {
+                continue;
+            }
+
+
+            int stream = Integer.parseInt(
+                    ((char) dwordbuff[0]) + "" + ((char) dwordbuff[1]));
+            //Skip the dwFlags
+            dis.skip(4);
+
+            //
+            int offset = AVUtils.readLittleEndianInt(dis);
+
+            System.out.println("Wub found offset " + offset + " stream " + stream + " i = " + sampleI);
+
+            //Load htis offset into the array
+            tmpAudioStreamSampleLocations[stream - 1][stream == 1
+                                                      ? sampleI++ : sampleJ++] = offset + tmpStartOfMovieList;
+            System.out.println("" + sampleI + ":" + sampleJ);
+        }
+
+        //Now we know where all the samples are, build from them!
+        int tmpAudioStreamSampleLocationsTrunc[][] = new int[2][];
+
+        tmpAudioStreamSampleLocationsTrunc[0] = new int[sampleI];
+        tmpAudioStreamSampleLocationsTrunc[1] = new int[sampleJ];
+
+        System.arraycopy(tmpAudioStreamSampleLocations[0], 0, tmpAudioStreamSampleLocationsTrunc[0], 0, sampleI);
+        System.arraycopy(tmpAudioStreamSampleLocations[1], 0, tmpAudioStreamSampleLocationsTrunc[1], 0, sampleJ);
+
+
+        //Open the file for random access
+        dis.close();
+
+
+
+        FileChannel fc = FileChannel.open(getMediaFile().getFileOnDisk(), StandardOpenOption.READ, StandardOpenOption.WRITE);
+        ByteBuffer four = ByteBuffer.allocate(4);
+
+        for (int stream = 0; stream < tmpAudioStreamSampleLocationsTrunc.length; stream++) {
+            byte datum[][] = new byte[tmpAudioStreamSampleLocationsTrunc[stream].length][];
+
+            for (int sample = 0; sample < tmpAudioStreamSampleLocationsTrunc[stream].length; sample++) {
+
+                System.out.println("ss " + stream + " " + sample + "= offset @ " + tmpAudioStreamSampleLocationsTrunc[stream][sample]);
+
+                //First four bytes are dumb, but do read the length...
+                fc.read(four, tmpAudioStreamSampleLocationsTrunc[stream][sample] + 4);
+
+                //Make a length out of that and a new buffer, then dump that into
+                //the pcm stream
+                //First need little-endian reading of that length...
+                four.flip();
+                int len = 0;
+                int i = 0;
+                while (four.hasRemaining()) {
+
+                    len += (four.get() & 0xFF) << (8 * i);
+                    System.out.println("LEN: " + len);
+                    i++;
+                }
+
+                System.out.println("Sample length, stream " + stream + " : " + len);
+                four.flip();
+
+                //copy in and prepare, each sample point gets a thing in datum
+                datum[sample] = new byte[len];
+
+
+                ByteBuffer datumBuffer = ByteBuffer.allocate(len);
+                fc.read(datumBuffer, tmpAudioStreamSampleLocationsTrunc[stream][sample]);
+                datumBuffer.flip();
+
+                if (!datumBuffer.hasArray()) {
+                    throw new RuntimeException("NO BACKING ARRAY");
+                }
+
+                for (int ii = 0; ii < len; ii++) {
+                    datum[sample][ii] = datumBuffer.array()[ii];
+                }
+
+
+            }
+
+            //combine all the datums into a stream...
+            //This will break if the samples aren't all the same length per stream.....
+            byte realDatum[] = new byte[datum[0].length * tmpAudioStreamSampleLocationsTrunc[stream].length];
+            for (int i = 0; i < realDatum.length; i++) {
+                realDatum[i] = datum[i / datum[0].length][i % datum[0].length];
+            }
+
+            //add new stream
+            PCM_Stream thisStream = new PCM_Stream(this, "audio " + stream, AudioPCMFormat.S16LE_44100_Stereo, realDatum);
+            streams.add(thisStream);
+        }
         return true;
     }
 
@@ -339,7 +553,7 @@ public class MSIAVI_Container extends MediaContainer {
     }
 
     @Override
-    public ArrayList<VideoStream> getStreams() {
+    public ArrayList<MediaStream> getStreams() {
         return streams;
     }
 

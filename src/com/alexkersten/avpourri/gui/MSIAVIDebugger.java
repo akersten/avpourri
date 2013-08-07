@@ -12,6 +12,7 @@
 package com.alexkersten.avpourri.gui;
 
 import com.alexkersten.avpourri.AVPRuntime;
+import com.alexkersten.avpourri.media.AudioStream;
 import com.alexkersten.avpourri.media.MediaFile;
 import com.alexkersten.avpourri.media.MediaStream;
 import com.alexkersten.avpourri.media.containers.msiavi.MSIAVI_Container;
@@ -27,7 +28,7 @@ import javax.swing.JOptionPane;
  */
 @SuppressWarnings("serial")
 public class MSIAVIDebugger extends javax.swing.JFrame {
-
+    
     private AVPRuntime runtime;
 
     /**
@@ -35,7 +36,7 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
      */
     public MSIAVIDebugger(AVPRuntime runtime) {
         this.runtime = runtime;
-
+        
         initComponents();
         try {
             setIconImage(ImageIO.read(
@@ -43,7 +44,7 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println("Can't load frame icon.");
         }
-
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -83,6 +84,8 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
         indexPanel = new javax.swing.JPanel();
         indexScrollPane = new javax.swing.JScrollPane();
         indexList = new javax.swing.JList();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         sizeLabel = new javax.swing.JLabel();
@@ -246,21 +249,46 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
 
         indexScrollPane.setViewportView(indexList);
 
+        jButton1.setText("Play audio (taskmanager to stop)");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/alexkersten/avpourri/gui/icons/sound16.png"))); // NOI18N
+        jButton2.setText("Extract audio");
+        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout indexPanelLayout = new javax.swing.GroupLayout(indexPanel);
         indexPanel.setLayout(indexPanelLayout);
         indexPanelLayout.setHorizontalGroup(
             indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(indexPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(indexScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addGroup(indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(indexScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                    .addGroup(indexPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         indexPanelLayout.setVerticalGroup(
             indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(indexPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(indexScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(indexScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(indexPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap())
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Container"));
@@ -319,23 +347,24 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    MSIAVI_Container container;
     private void browseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseButtonActionPerformed
         JFileChooser jf = new JFileChooser();
         int result = jf.showOpenDialog(this);
-
+        
         if (result == JFileChooser.APPROVE_OPTION) {
+            JOptionPane.showMessageDialog(this, "This might take a few minutes, press OK and wait.\nFields will populate when finished.", "INFO", JOptionPane.INFORMATION_MESSAGE);
             selectedFileLabel.setText(jf.getSelectedFile().getAbsolutePath());
-
+            
             MediaFile selectedFile = new MediaFile(jf.getSelectedFile().toPath());
-
-            MSIAVI_Container container = new MSIAVI_Container(selectedFile);
+            
+            container = new MSIAVI_Container(selectedFile);
             try {
                 if (!container.initialize()) {
                     selectedFileLabel.setText("Invalid MSIAVI file! " + jf.getSelectedFile().getAbsolutePath());
                     return;
                 }
-
+                
                 sizeLabel.setText(container.getContainerSize() + "");
 
                 //Read header properties
@@ -349,29 +378,39 @@ public class MSIAVIDebugger extends javax.swing.JFrame {
                 jLabel18.setText("" + container.getdwSuggestedBufferSize());
                 jLabel19.setText("" + container.getdwWidth());
                 jLabel20.setText("" + container.getdwHeight());
-
+                
                 DefaultListModel lm = new DefaultListModel();
                 for (MediaStream m : container.getStreams()) {
                     lm.add(0, m.getName());
                 }
-
+                
                 indexList.setModel(lm);
-
+                
             } catch (IOException ioe) {
+                ioe.printStackTrace();;
                 JOptionPane.showMessageDialog(
                         this, ioe.getLocalizedMessage(),
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                        "Errorrr", JOptionPane.ERROR_MESSAGE);
             }
-
-
+            
+            
         }
     }//GEN-LAST:event_browseButtonActionPerformed
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ((AudioStream) container.getStreams().get(indexList.getSelectedIndex())).playSync();
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseButton;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JList indexList;
     private javax.swing.JPanel indexPanel;
     private javax.swing.JScrollPane indexScrollPane;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
